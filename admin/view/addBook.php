@@ -1,0 +1,102 @@
+<?php require(__DIR__ . '/../includes/header.php');
+
+$success = isset($_GET['success']) ? $_GET['success'] : "";
+$notSuccess = isset($_GET['notSuccess']) ? $_GET['notSuccess'] : "";
+?>
+<main>
+    <section>
+        <div class="container">
+
+            <div class="box-add-book">
+                <?php if (!empty($success)): ?>
+                    <p class="success"> <?php echo $success ?></p>
+                <?php elseif (!empty($notSuccess)): ?>
+                    <p class="notSuccess"> <?php echo $notSuccess ?></p>
+                <?php endif; ?>
+
+                <form action="" method="POST" enctype="multipart/form-data">
+                    <div class="content-the-four-input">
+
+                        <div class="fisrt-section">
+
+                            <div class="box-form">
+                                <label for="book_name">اسم الكتاب</label>
+                                <input type="text" name="bookName" id="book_name" placeholder="ادخل اسم الكتاب" required>
+                            </div>
+                            <div class="box-form">
+
+                                <label for="author">المؤلف</label>
+                                <select name="id_author" id="author">
+                                    <?php foreach ($authors as $author): ?>
+                                        <option value="<?php echo $author['id_author'] ?>">
+                                            <?php echo $author['name'] ?>
+                                        </option>
+
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="fisrt-section">
+                            <div class="box-form">
+
+                                <label for="date">سنة النشر</label>
+                                <input type="date" name="publish_year" id="date" placeholder="ادخل سنة النشر" required>
+                            </div>
+                            <div class="box-form">
+
+                                <label for="category">النصنيف</label>
+                                <select name="id_category" id="category">
+                                    <?php foreach ($allCategory as $category): ?>
+                                        <option value="<?php echo $category['id_category'] ?>">
+                                            <?php echo $category['title_category'] ?>
+                                        </option>
+
+                                    <?php endforeach; ?>
+                                </select>
+
+                            </div>
+
+                        </div>
+                        <div class="fisrt-section">
+
+                            <div class="box-form">
+                                <label for="pages">عدد الصفحات </label>
+
+                                <input type="number" name="pages" id="pages" placeholder="ادخل عدد الصفحات" required>
+                            </div>
+                            <div class="box-form">
+                                <label for="file_size">حجم الملف </label>
+                                <input type="number" name="file_size" id="file_size" placeholder="ادخل حجم الملف" required>
+                            </div>
+                        </div>
+                        <div class="fisrt-section">
+
+                            <div class="box-form">
+                                <label for="language">اللغة</label>
+                                <select name="language" id="language">
+                                    <option value="العربية">العربية</option>
+                                </select>
+                            </div>
+                            <div class="box-form">
+                                <label for="fileInputBook" class="upload-btn">إضافة كتاب</label>
+                                <input type="file" name="book_url" id="fileInput" placeholder="ادخل  الكتاب" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-form">
+                        <label for="fileInput" class="upload-btn"> إضافة صورة</label>
+                        <input type="file" id="fileInput" name="image_url" accept="image/*">
+                    </div>
+                    <div class="box-form">
+                        <textarea name="description" id=""></textarea>
+                    </div>
+
+
+                    <button type="submit" id="btnAddNewBook" name="addBook"> إضافة</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+</main>
+<!-- <script src="../asstes/js/main.js"></script> -->
