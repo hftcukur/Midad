@@ -40,8 +40,8 @@
                         <td>2020</td>
                         <td>نور</td>
                         <td class="action-btn">
-                            <button class="btn delete" onclick="window.location='page2.php?id=5'">حذف</button>
-                            <button class="btn update" onclick="window.location='updateBook.php?updateID=5'">تعديل</button>
+                            <button class="btn delete" onclick="window.location='page2.php?id=5'"><i class="fa-solid fa-trash"></i></button>
+                            <button class="btn update" onclick="window.location='updateBook.php?updateID=5'"><i class="fa-solid fa-pen"></i></button>
                         </td>
                     </tr>
                 </tbody>

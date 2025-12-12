@@ -3,8 +3,8 @@
     <section>
         <div class="container">
             <div class="main-content">
-                <div class="box-admin add-new-book">
-                    <a href="addAdmin">
+                <div class="box-author add-new-book">
+                    <a href="addauthor">
                         <span> إضافة مؤلف</span><i class="fa-solid fa-book-medical"></i>
 
                     </a>
@@ -29,13 +29,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($allAdmins as $Admin):?>
-                    <tr>
-                        <td><?php echo $Admin['admin_id'] ?></td>
-                        <td><?php echo $Admin['name'] ?></td>
+                    <?php foreach($allAuthors as $author):?>
+                    <tr class="row">
+                        <td><?php echo $author['id_author'] ?></td>
+                        <td><?php echo $author['name'] ?></td>
                         <td class="action-btn">
-                            <button class="btn delete" onclick="window.location='page2.php?id=5'">حذف</button>
-                            <button class="btn update" onclick="window.location='updateBook.php?updateID=5'">تعديل</button>
+                            <button class="btn delete" onclick="window.location='page2.php?id=5'"> <i class="fa-solid fa-trash"></i></button>
+                            <button class="btn update" onclick="window.location='updateBook.php?updateID=5'"> <i class="fa-solid fa-pen"></i></button>
                         </td>
                     </tr>
                     <?php endforeach;?>
