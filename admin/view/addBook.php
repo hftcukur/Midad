@@ -1,19 +1,15 @@
 <?php require(__DIR__ . '/../includes/header.php');
 
-$success = isset($_GET['success']) ? $_GET['success'] : "";
-$notSuccess = isset($_GET['notSuccess']) ? $_GET['notSuccess'] : "";
+$Message ;
 ?>
 <main>
     <section>
         <div class="container">
 
             <div class="box-add-book">
-                <?php if (!empty($success)): ?>
-                    <p class="success"> <?php echo $success ?></p>
-                <?php elseif (!empty($notSuccess)): ?>
-                    <p class="notSuccess"> <?php echo $notSuccess ?></p>
-                <?php endif; ?>
-
+                <?php if (!empty($Message)): ?>
+                    <p class="success"> <?php echo $Message ?></p>
+                    <?php endif;?>
                 <form action="" method="POST" enctype="multipart/form-data">
                     <div class="content-the-four-input">
 
@@ -79,7 +75,7 @@ $notSuccess = isset($_GET['notSuccess']) ? $_GET['notSuccess'] : "";
                             </div>
                             <div class="box-form">
                                 <label for="fileInputBook" class="upload-btn">إضافة كتاب</label>
-                                <input type="file" name="book_url" id="fileInput" placeholder="ادخل  الكتاب" required>
+                                <input type="file" name="book_url" id="fileInputBook" placeholder="ادخل  الكتاب" required>
                             </div>
                         </div>
                     </div>

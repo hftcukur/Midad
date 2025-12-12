@@ -143,9 +143,9 @@ if (array_key_exists($URL, $route)) {
             $search = $controllBook->search($name);
             require_once('view/' . $route[$URL]);
             break;
-            case Route::profile->value:
-                require_once('view/' . $route[$URL]);
-                break;
+        case Route::profile->value:
+            require_once('view/' . $route[$URL]);
+            break;
         // Admin
         case Route::homePageAdmin->value:
             require_once('admin/view/' . $route[$URL]);
@@ -157,7 +157,7 @@ if (array_key_exists($URL, $route)) {
         case Route::pageAdminAddBook->value:
             if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addBook'])) {
                 $bookName = $_POST['bookName'];
-                $publish_year = $_POST['publish_year'];
+                $year = $_POST['publish_year'];
                 $id_category = $_POST['id_category'];
                 $id_author = $_POST['id_author'];
                 $pages = $_POST['pages'];
@@ -165,7 +165,8 @@ if (array_key_exists($URL, $route)) {
                 $description = $_POST['description'];
                 $image = $_FILES['image_url'];
                 $book = $_FILES['book_url'];
-                $controllBook->addBook($bookName, $id_author, $publish_year, $id_category, $pages, $description, $image, $file_size, $image, $book);
+                $language = $_POST['language'];
+                $Message  = $controllBook->addBook($bookName, $id_author, $year, $id_category, $pages, $description, $image, $file_size,$language,$book);
             }
             $allCategory = $controllBook->getAllCategory();
             $authors = $controllAuthor->getAll();

@@ -8,13 +8,13 @@ class ModelBook   extends CoreModel
   }
 
 
-  function insertBook($bookName, $id_author, $publish_year, $id_category, $pages, $description, $file_size, $path)
+  function insertBook($bookName, $id_author, $year, $id_category, $pages, $description, $file_size, $imgPathDB, $filePathDB, $language)
   {
-    $QeruyinsertBook = "INSERT INTO books (title,pages,file_size,image,year,description,id_author,id_category)
-    VALUES (?,?,?,?,?,?,?,?)
+    $QeruyinsertBook = "INSERT INTO books (title,pages,file_size,image,year,description,id_author,id_category,language,book_url)
+    VALUES (?,?,?,?,?,?,?,?,?,?)
     ";
     $stmt = $this->database->prepare($QeruyinsertBook);
-    return $stmt->execute([$bookName,$pages,$file_size,$path,$publish_year,$description,$id_author,$id_category]);
+    return $stmt->execute([$bookName, $pages, $file_size, $imgPathDB, $year, $description, $id_author, $id_category, $language, $filePathDB]);
 
   }
   function  loadCategory()

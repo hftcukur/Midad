@@ -51,7 +51,7 @@ include(__DIR__ . '/../includes/header.php'); ?>
           </table>
         </div>
         <div class="action_book">
-          <a href=""><i class="fas fa-download"></i>تحميل</a>
+          <a href="<?php echo $infoBook['book_url'];?>"><i class="fas fa-download"></i>تحميل</a>
           <button><i class="fas fa-share-alt"></i>مشاركة</button>
           <button class="btn-like-book"><i class="fas fa-thumbs-up"></i></button>
         </div>
