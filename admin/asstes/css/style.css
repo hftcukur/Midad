@@ -211,7 +211,6 @@ ul li :hover {
 .container .table-books {
    width: 100%;
    height: 55vh;
-   padding: 0.5rem;
    border-radius: var(--Radius);
    margin-top: 3rem;
    overflow: hidden;
@@ -221,6 +220,7 @@ ul li :hover {
    width: 100%;
    border-collapse: collapse;
    text-align: center;
+   border-radius: var(--Radius);
 }
 
 .container .table-books table thead tr {
@@ -267,12 +267,13 @@ ul li :hover {
    width: 100%;
    min-height: 550px;
    margin: 0 auto;
-   background-color: var(--background-header);
    margin-top: 2rem;
    padding: 1.5rem;
    border-radius: var(--Radius);
    box-shadow: var(--box-shadow);
+   
 }
+
 .container .box-add-book .adminForm form {
    width: 100%;
 }
@@ -284,13 +285,13 @@ ul li :hover {
    left: 44%;
 }
 /* Upload Button */
-#fileInput {
+#fileInput ,#fileInputBook{
     display: none;
 }
 
 .upload-btn {
     padding: 10px 20px;
-    background-color: var(--color-bg);
+    background-color: var(--background-header);
     color: var(--color-text-secondary);
     cursor: pointer;
     border-radius: 6px;
@@ -300,6 +301,10 @@ ul li :hover {
     text-align: center;
     margin-top: 0.5rem;
     transition: var(--transition);
+}
+.fileinputImageAuthor{
+   position: relative;
+   top: 15px;
 }
 
 

@@ -1,5 +1,4 @@
-<?php require(__DIR__ . '/../includes/header.php');
-; ?>
+<?php require(__DIR__ . '/../includes/header.php');; ?>
 <main>
     <section>
         <div class="container">
@@ -13,7 +12,7 @@
                 <div class="search-book">
                     <form action="">
                         <input type="text" name="search-for" id="search-for" placeholder="ابحث عن كتاب" required>
-                        <button type="submit"  name="submit" class="submit-search"> بحث </button>
+                        <button type="submit" name="submit" class="submit-search"> بحث </button>
                     </form>
                 </div>
             </div>

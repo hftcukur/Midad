@@ -15,7 +15,6 @@ class ModelBook   extends CoreModel
     ";
     $stmt = $this->database->prepare($QeruyinsertBook);
     return $stmt->execute([$bookName, $pages, $file_size, $imgPathDB, $year, $description, $id_author, $id_category, $language, $filePathDB]);
-
   }
   function  loadCategory()
   {
@@ -48,9 +47,9 @@ class ModelBook   extends CoreModel
     $stmt->execute([$idUser, $idBook, 1]);
   }
   function infoBook($idBook)
-{
+  {
     $queryInfoBook = "
-        SELECT books.title,books.image,books.pages,books.file_size,books.file_type,books.year,books.description,books.language,books.book_url,authors.name AS authorName,category.title_category
+        SELECT books.id_book,books.readBook,books.downloads, books.title,books.image,books.pages,books.file_size,books.file_type,books.year,books.description,books.language,books.book_url,authors.name AS authorName,category.title_category
         FROM books
         JOIN authors ON authors.id_author = books.id_author
         JOIN category ON books.id_category = category.id_category
@@ -59,11 +58,20 @@ class ModelBook   extends CoreModel
     $stmt = $this->database->prepare($queryInfoBook);
     $stmt->bindParam(':id', $idBook, PDO::PARAM_INT);
     $stmt->execute();
-    
+
     return $stmt->fetch(PDO::FETCH_ASSOC);
-}
-  function search($name)
+  }
+  function search($name) {}
+  function incrementReadBook($id)
   {
-     
+    $queryIncrementReadBook = "UPDATE books SET readBook = COALESCE(readBook,0) + 1 WHERE id_book  = ?";
+    $stmt = $this->database->prepare($queryIncrementReadBook);
+    $stmt->execute([$id]);
+  }
+  function incrementDonwnload($id)
+  {
+    $queryIncrementDonwnload ="UPDATE books SET downloads = COALESCE(downloads,0) + 1 WHERE id_book = ?";
+    $stmt = $this->database->prepare($queryIncrementDonwnload);
+    $stmt->execute([$id]);
   }
 }

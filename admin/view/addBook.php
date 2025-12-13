@@ -80,7 +80,7 @@ $Message ;
                         </div>
                     </div>
                     <div class="box-form">
-                        <label for="fileInput" class="upload-btn"> إضافة صورة</label>
+                        <label for="fileInput" class="upload-btn "> إضافة صورة</label>
                         <input type="file" id="fileInput" name="image_url" accept="image/*">
                     </div>
                     <div class="box-form">

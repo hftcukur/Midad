@@ -1,4 +1,4 @@
-
+<script src="public/js/main.js"></script>
  <footer>
     <div class="logo-footer">
         <img src="public/images/iconMidad.png" alt="">

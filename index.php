@@ -38,6 +38,7 @@ enum Route: string
     case profile = '/Madad/profile';
     case homePageAdmin = '/Madad/admin/home';
     case managemtAuthor = '/Madad/admin/magagement-atuhor';
+    case addAuthor = '/Madad/admin/addAuthor';
     case pageAdmin = '/Madad/admin/admin';
     case pageAdminAddBook = '/Madad/admin/addBook';
     case pageAdminAddAdmin = '/Madad/admin/addAdmin';
@@ -54,6 +55,7 @@ $route = [
     '/Madad/info_author' => 'info_author.php',
     '/Madad/profile' => 'profile.php',
     '/Madad/admin/home' => 'page-admin.php',
+    '/Madad/admin/addAuthor' => 'addAuthor.php',
     '/Madad/admin/magagement-atuhor' => 'manageAuthor.php',
     '/Madad/admin/admin' => 'admin.php',
     '/Madad/admin/addBook' => 'addBook.php',
@@ -114,6 +116,13 @@ if (array_key_exists($URL, $route)) {
             if ($_GET['bookID']) {
                 $id = $_GET['bookID'];
             }
+            if(isset($_POST['idDownloadBook'])){
+                $controllBook->incrementDonwnload($_POST['idDownloadBook']);
+            }
+            if(isset($_POST['idReadBook'])){
+                $id = $_POST['idReadBook'];
+                $controllBook->incrementReadBook($id);
+            }
 
             $infoBook = $controllBook->getInfoBookByID($id);
             require_once('view/' . $route[$URL]);
@@ -166,7 +175,7 @@ if (array_key_exists($URL, $route)) {
                 $image = $_FILES['image_url'];
                 $book = $_FILES['book_url'];
                 $language = $_POST['language'];
-                $Message  = $controllBook->addBook($bookName, $id_author, $year, $id_category, $pages, $description, $image, $file_size,$language,$book);
+                $Message  = $controllBook->addBook($bookName, $id_author, $year, $id_category, $pages, $description, $image, $file_size, $language, $book);
             }
             $allCategory = $controllBook->getAllCategory();
             $authors = $controllAuthor->getAll();
@@ -185,6 +194,15 @@ if (array_key_exists($URL, $route)) {
             break;
         case Route::managemtAuthor->value:
             $allAuthors = $controllAuthor->getAll();
+            require_once('admin/view/' . $route[$URL]);
+            break;
+        case Route::addAuthor->value:
+            if(isset($_POST['addauthor'])){
+                $nameAuthor = $_POST['authorName'];
+                $imageURLAuthro = $_FILES['imageURLAuthro'];
+                $bioAuthro = $_POST['bio'];
+                $Message = $controllAuthor->addAuthor($nameAuthor,$imageURLAuthro,$bioAuthro);
+            }
             require_once('admin/view/' . $route[$URL]);
             break;
         default:

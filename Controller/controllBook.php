@@ -38,6 +38,9 @@ class ControllBook
         if (!in_array($imgExt, $allowed)) {
             return "خطأ في تحميل الصورة";
         }
+        if (empty($bookName) || empty($id_author) || empty($year) || empty($id_category) || empty($pages) || empty($image) || empty($bookURL)) {
+            return "يرجاء إدخال التفاصيل";
+        }
         $newImg = uniqid() . "." . $imgExt;
         $imgFolder = __DIR__ . '/../uploads/image_book/';
         $imgPathDB = 'uploads/image_book/' . $newImg;
@@ -47,14 +50,14 @@ class ControllBook
         $fileName = $bookURL['name'];
         $fileTmp  = $bookURL['tmp_name'];
         $fileExt  = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-        
+
         $newFile = uniqid() . "." . $fileExt;
         $fileFolder = __DIR__ . '/../uploads/book_url/';
         $filePathDB = 'uploads/book_url/' . $newFile;
 
         move_uploaded_file($fileTmp, $fileFolder . $newFile);
 
-        $result = $this->modelBook->insertBook( $bookName, $id_author, $year, $id_category, $pages, $description, $file_size, $imgPathDB, $filePathDB, $language);
+        $result = $this->modelBook->insertBook($bookName, $id_author, $year, $id_category, $pages, $description, $file_size, $imgPathDB, $filePathDB, $language);
 
         if ($result) {
             return "تم إضافة الكتاب";
@@ -76,4 +79,15 @@ class ControllBook
         return $this->modelBook->infoBook($idBook);
     }
     function like($lik) {}
+    function incrementDonwnload($id)
+    {
+        if (empty($id)) {
+            return "فشل في تنزيل الكتاب";
+        }
+        $resultDownload = $this->modelBook->incrementDonwnload($id);
+        return ($resultDownload) ? "تم تنزيل الكتاب" : "فشل في تنزيل الكتاب";
+    }
+    function incrementReadBook($id){
+        $this->modelBook->incrementReadBook($id);
+    }
 }

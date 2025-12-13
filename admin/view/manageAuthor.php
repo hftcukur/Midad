@@ -4,7 +4,7 @@
         <div class="container">
             <div class="main-content">
                 <div class="box-author add-new-book">
-                    <a href="addauthor">
+                    <a href="addAuthor">
                         <span> إضافة مؤلف</span><i class="fa-solid fa-book-medical"></i>
 
                     </a>
@@ -29,16 +29,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($allAuthors as $author):?>
-                    <tr class="row">
-                        <td><?php echo $author['id_author'] ?></td>
-                        <td><?php echo $author['name'] ?></td>
-                        <td class="action-btn">
-                            <button class="btn delete" onclick="window.location='page2.php?id=5'"> <i class="fa-solid fa-trash"></i></button>
-                            <button class="btn update" onclick="window.location='updateBook.php?updateID=5'"> <i class="fa-solid fa-pen"></i></button>
-                        </td>
-                    </tr>
-                    <?php endforeach;?>
+                    <?php foreach ($allAuthors as $author): ?>
+                        <tr class="row">
+                            <td><?php echo $author['id_author'] ?></td>
+                            <td><?php echo $author['name'] ?></td>
+                            <td class="action-btn">
+                                <button class="btn delete" onclick="window.location='page2.php?id=5'"> <i class="fa-solid fa-trash"></i></button>
+                                <button class="btn update" onclick="window.location='updateBook.php?updateID=5'"> <i class="fa-solid fa-pen"></i></button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>

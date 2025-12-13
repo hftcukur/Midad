@@ -507,28 +507,39 @@ ul li a:hover {
    grid-column: 1 / span 2;
    grid-row: 2;
    position: relative;
+   bottom:  40px;
    right: 270px;
    display: flex;
    justify-content: space-evenly;
    align-items: center;
    position: relative;
 }
-
-.container .book-main .book_info .action_book button , .action_book a{
-   padding: 8px 20px;
-   width: 100px;
+.container .info_book .action_book {
    display: flex;
-   justify-content: space-between;
+   background-color: var(--background-header);
+   margin: 0.5rem 0px;
+   padding: 1rem;
+   border-radius: var(--Radius)  ;
+}
+.container .book-main .book_info .action_book .sharing , .action_book a  {
+   width: 70px;
+   height: 70px;
+   margin: 0rem 10rem;
+   padding: 1rem;
+   border-radius: 50%;
+ display: flex;
+   flex-direction: column;
    align-items: center;
+   text-align: center;
+   gap: 10px;
    color: var(--color-text-secondary);
    background-color: var(--background-header);
    border: 0.1rem solid var(--btn);
-   border-radius: 7px;
    cursor: pointer;
    font-size: 1rem;
+   box-shadow: var(--box-shadow);
    transition: var(--transition);
 }
-
 .container .book-main .book_info .action_book .btn-like-book {
    border: none;
    font-size: 1.8rem;

@@ -5,6 +5,12 @@ class ModelAuthor {
     {
         $this->database = $database;
     }
+
+    function insert($nameAuthor,$pathImage,$bio){
+      $queryAddAuthor  = "INSERT INTO 	authors (name,image,bio) VALUES (?,?,?)";     
+      $stmt = $this->database->prepare($queryAddAuthor);
+      return $stmt->execute([$nameAuthor,$pathImage,$bio]);
+    }
       public function loadAll()
     {
         $query = "SELECT * FROM authors";
