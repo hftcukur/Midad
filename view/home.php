@@ -6,9 +6,9 @@
         <h1>مكتبة مِداد</h1>
         <h2>مكتبة مِداد تجمع الكتب في مكان واحد</h2>
         <div class="search-box">
-            <form action="">
-                <input type="text" name="search-for" id="search-for" placeholder="ابحث عن كتاب او مؤلف" required>
-                <button type="submit" name="submit" class="submit-search"> بحث</button>
+            <form action="/Madad/search">
+                <input type="text" name="name" id="search-for" placeholder="ابحث عن كتاب او مؤلف" required>
+                <button type="submit" name="search" class="submit-search"> بحث</button>
             </form>
         </div>
     </div>

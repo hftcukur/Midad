@@ -26,12 +26,12 @@ include(__DIR__ . '/../includes/header.php'); ?>
                 <ul>
                     <li>
                         <span>الكتب</span>
-                        <span>(21)</span>
+                        <span>(<?php echo $infoAuthor['total_book']?>)</span>
                     </li>
 
                     <li>
                         <span>اجمالي التحميل</span>
-                        <span>(<?php echo $id ?>)</span>
+                        <span>(<?php echo $infoAuthor['total_downloads'] ?>)</span>
                     </li>
                 </ul>
             </div>

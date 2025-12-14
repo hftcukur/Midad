@@ -1,5 +1,5 @@
 <?php
-class CoreModel 
+class BaseModel 
 {
     protected $database;
     protected $table;

@@ -1,66 +1,94 @@
-<?php
-session_start();
-include('../includes/header.php');
+<?php require(__DIR__ . '/../includes/header.php');
 
-// Start Section Book
-
-$success = isset($_GET['success']) ? $_GET['success'] : "";
-$notSuccess = isset($_GET['notSuccess']) ? $_GET['notSuccess'] : "";
-if (isset($_GET['updateID'])) {
-    $_SESSION['updateID'] = $_GET['updateID'];
-}
-
+$Message ;
 ?>
 <main>
     <section>
         <div class="container">
 
             <div class="box-add-book">
-                <h1>تعديل كتاب <?php echo $updateBook['bookName']; ?></h1>
-                <?php if (!empty($success)): ?>
-                    <p> <?php echo $success ?></p>
-                <?php elseif (!empty($notSuccess)): ?>
-                    <p> <?php echo $notSuccess ?></p>
-                <?php endif; ?>
+                <?php if (!empty($Message)): ?>
+                    <p class="success"> <?php echo $Message ?></p>
+                    <?php endif;?>
+                <form action="" method="POST" enctype="multipart/form-data">
+                    <div class="content-the-four-input">
 
-                <form action="../../Routes/route.php" method="POST" enctype="multipart/form-data">
-                    <div class="box-form">
-                        <label for="book_name">اسم الكتاب</label>
-                        <input type="text" name="bookName" id="book_name" placeholder="ادخل اسم الكتاب" required value="<?php echo $updateBook['bookName'] ?>">
-                    </div>
-                    <div class="box-form">
+                        <div class="fisrt-section">
 
-                        <label for="authro">اسم المؤلف</label>
-                        <input type="text" name="authorName" id="authro" placeholder="ادخل اسم المؤلف" required value="<?php echo $updateBook['authorName'] ?>">
-                    </div>
-                    <div class="box-form">
+                            <div class="box-form">
+                                <label for="book_name">اسم الكتاب</label>
+                                <input type="text" name="bookName" id="book_name" placeholder="ادخل اسم الكتاب" required value="<?php $updateBook['title']?>">
+                            </div>
+                            <div class="box-form">
 
-                        <label for="date">سنة النشر</label>
-                        <input type="date" name="publish_year" id="date" placeholder="ادخل سنة النشر" required value="<?php echo $updateBook['publish_year'] ?>">
-                    </div>
-                    <div class="box-form">
+                                <label for="author">المؤلف</label>
+                                <select name="id_author" id="author">
+                                    <?php foreach ($authors as $author): ?>
+                                        <option value="<?php echo $author['id_author'] ?>">
+                                            <?php echo $author['name'] ?>
+                                        </option>
 
-                        <label for="category">التصنيف</label>
-                        <input type="text" name="category" id="category" placeholder="ادخل التصنيف" required value="<?php echo $updateBook['category'] ?>">
-                    </div>
-                    <div class="box-form">
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="fisrt-section">
+                            <div class="box-form">
 
-                        <label for="pages">عدد الصفحات</label>
-                        <input type="number" name="pages" id="pages" placeholder="ادخل عدد الصفحات" required value="<?php echo $updateBook['pages'] ?>">
+                                <label for="date">سنة النشر</label>
+                                <input type="date" name="publish_year" id="date" placeholder="ادخل سنة النشر" required>
+                            </div>
+                            <div class="box-form">
+
+                                <label for="category">النصنيف</label>
+                                <select name="id_category" id="category">
+                                    <?php foreach ($allCategory as $category): ?>
+                                        <option value="<?php echo $category['id_category'] ?>">
+                                            <?php echo $category['title_category'] ?>
+                                        </option>
+
+                                    <?php endforeach; ?>
+                                </select>
+
+                            </div>
+
+                        </div>
+                        <div class="fisrt-section">
+
+                            <div class="box-form">
+                                <label for="pages">عدد الصفحات </label>
+
+                                <input type="number" name="pages" id="pages" placeholder="ادخل عدد الصفحات" required>
+                            </div>
+                            <div class="box-form">
+                                <label for="file_size">حجم الملف </label>
+                                <input type="number" name="file_size" id="file_size" placeholder="ادخل حجم الملف" required>
+                            </div>
+                        </div>
+                        <div class="fisrt-section">
+
+                            <div class="box-form">
+                                <label for="language">اللغة</label>
+                                <select name="language" id="language">
+                                    <option value="العربية">العربية</option>
+                                </select>
+                            </div>
+                            <div class="box-form">
+                                <label for="fileInputBook" class="upload-btn">إضافة كتاب</label>
+                                <input type="file" name="book_url" id="fileInputBook" placeholder="ادخل  الكتاب" required>
+                            </div>
+                        </div>
                     </div>
                     <div class="box-form">
-                        <label>الوصف</label>
-                        <textarea name="description" id="">
-                            <?php echo $updateBook['description'] ?>
-                        </textarea>
-                    </div>
-                    <div class="box-form">
-                        <label for="fileInput" class="upload-btn">اختر صورة</label>
+                        <label for="fileInput" class="upload-btn "> إضافة صورة</label>
                         <input type="file" id="fileInput" name="image_url" accept="image/*">
                     </div>
+                    <div class="box-form">
+                        <textarea name="description" id=""></textarea>
+                    </div>
 
 
-                    <input type="submit" name="addBook" value="تعديل">
+                    <button type="submit" id="btnAddNewBook" name="addBook"> إضافة</button>
                 </form>
             </div>
 

@@ -38,10 +38,12 @@ enum Route: string
     case profile = '/Madad/profile';
     case homePageAdmin = '/Madad/admin/home';
     case managemtAuthor = '/Madad/admin/magagement-atuhor';
+    case ManagementUsers = '/Madad/admin/ManagementUsers';
     case addAuthor = '/Madad/admin/addAuthor';
     case pageAdmin = '/Madad/admin/admin';
     case pageAdminAddBook = '/Madad/admin/addBook';
     case pageAdminAddAdmin = '/Madad/admin/addAdmin';
+    case updateBook = '/Madad/admin/update';
 }
 $route = [
     '/Madad/home' => 'home.php',
@@ -57,14 +59,16 @@ $route = [
     '/Madad/admin/home' => 'page-admin.php',
     '/Madad/admin/addAuthor' => 'addAuthor.php',
     '/Madad/admin/magagement-atuhor' => 'manageAuthor.php',
+    '/Madad/admin/ManagementUsers' => 'ManagementUsers.php',
     '/Madad/admin/admin' => 'admin.php',
     '/Madad/admin/addBook' => 'addBook.php',
+    '/Madad/admin/update' => 'updateBook.php',
     '/Madad/admin/addAdmin' => 'addAdmin.php',
 ];
 if (array_key_exists($URL, $route)) {
     switch ($URL) {
         case Route::home->value:
-            $allBooks = $controllBook->getAll();
+            $allBooks = $controllBook->getInfoBookAndAuthor();
             $getToken  = $controllUser->checkToken($_COOKIE['remember_token']);
             $_SESSION['id_user'] = $getToken['id'];
             $_SESSION['username'] = $getToken['username'];
@@ -73,7 +77,7 @@ if (array_key_exists($URL, $route)) {
             require_once('view/' . $route[$URL]);
             break;
         case Route::books->value:
-            $allBooks = $controllBook->getAll();
+            $allBooks = $controllBook->getInfoBookAndAuthor();
             $allCategory = $controllBook->getAllCategory();
             if (isset($_GET['id_category'])) {
                 $id = $_GET['id_category'];
@@ -157,6 +161,7 @@ if (array_key_exists($URL, $route)) {
             break;
         // Admin
         case Route::homePageAdmin->value:
+            $allBooks = $controllBook->getAll();
             require_once('admin/view/' . $route[$URL]);
             break;
         case Route::pageAdmin->value:
@@ -205,6 +210,17 @@ if (array_key_exists($URL, $route)) {
             }
             require_once('admin/view/' . $route[$URL]);
             break;
+            case Route::updateBook->value:
+                if(isset($_POST['ID'])){
+                    $ID = $_POST['ID'];
+                    $updateBook = $controllBook->getAll();
+                }
+                require_once('admin/view/' . $route[$URL]);
+                break;
+                case Route::ManagementUsers->value:
+                    $allUsers = $controllUser->show();
+                    require_once('admin/view/' . $route[$URL]);
+                break;
         default:
             require_once('view/404.php');
     }

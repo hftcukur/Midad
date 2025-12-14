@@ -25,12 +25,15 @@
                 <ul>
                     <li><a href="home">الصفحة الرائيسية <i class="fa-solid fa-house"></i></a></li>
                     <li><a href="magagement-atuhor">المؤلفين<i class="fa-solid fa-user"></i></a></li>
-                    <li><a href="#">المستخدمين<i class="fa-solid fa-user"></i></a></li>
+                    <li><a href="ManagementUsers">المستخدمين<i class="fa-solid fa-user"></i></a></li>
                     <li><a href="admin">الادمن<i class="fa-solid fa-user"></i></a></li>
                     <li><a href="#">التقارير <i class="fa-solid fa-file-alt"></i></a></li>
                     <li><a href="#">الإعدادات<i class="fa-solid fa-gear"></i></a></li>
                 </ul>
             </nav>
-
+        <div class="profileAdmin">
+            <p>hussein Ahmed</p>
         </div>
+        </div>
+
     </header>

@@ -1,11 +1,11 @@
-<?php include(__DIR__ . '/../includes/header.php');?>
+<?php include(__DIR__ . '/../includes/header.php'); ?>
 
 <main>
     <section class="container categories">
         <div class="header-books">
             <ul>
                 <?php foreach ($allCategory as $rang): ?>
-                    <li class="rang-author"><a href="books?id_category=<?php echo $rang['id_category'] ?>"><?php echo $rang['title_category'] ?> </a></li>
+                    <li class="rang-author"><a href="category?id_category=<?php echo $rang['id_category'] ?>"><?php echo $rang['title_category'] ?> </a></li>
                 <?php endforeach; ?>
             </ul>
         </div>
@@ -22,19 +22,19 @@
     </section>
     <section class="container">
         <div class="books_madad">
-            <?php if($search):?>
-            <?php foreach ($search as $book): ?>
-                <div class="box_madad" title="<?= $book['title'] ?>">
-                    <a href="book_ditles?bookID=<?= $book['id_book'] ?>" class="link-book">
-                        <img src="<?= $book['image'] ?>" alt="<?= $book['title'] ?>" loading="lazy">
-                    </a>
-                    <a href="book_ditles?bookID=<?= $book['id_book'] ?>" class="book_title" title="<?= $book['title'] ?>"> <?= $book['title'] ?></a>
-                    <a href="info_author?authroID=<?= $book['id_author'] ?>" class="author" title="<?= $book['name'] ?>"> <?= $book['name'] ?></a>
-                </div>
-            <?php endforeach; ?>
-            <?php else:?>
-                <p>لا نجد الذي تبحث عه</p>
-            <?php endif;?>
+            <?php if ($search): ?>
+                <?php foreach ($search as $book): ?>
+                    <div class="box_madad" title="<?= $book['title'] ?>">
+                        <a href="book_ditles?bookID=<?= $book['id_book'] ?>" class="link-book">
+                            <img src="<?= $book['image'] ?>" alt="<?= $book['title'] ?>" loading="lazy">
+                        </a>
+                        <a href="book_ditles?bookID=<?= $book['id_book'] ?>" class="book_title" title="<?= $book['title'] ?>"> <?= $book['title'] ?></a>
+                        <a href="info_author?authroID=<?= $book['id_author'] ?>" class="author" title="<?= $book['name'] ?>"> <?= $book['name'] ?></a>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>لم نجد الكتاب</p>
+            <?php endif; ?>
         </div>
     </section>
 </main>

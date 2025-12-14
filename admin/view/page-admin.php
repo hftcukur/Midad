@@ -2,6 +2,7 @@
 <main>
     <section>
         <div class="container">
+      
             <div class="main-content">
                 <div class="box-admin add-new-book">
                     <a href="addBook">
@@ -24,25 +25,41 @@
                 <thead>
                     <tr>
                         <th>رقم الكتاب </th>
-                        <th>اسم الكتاب</th>
-                        <th>المؤلف </tdh>
-                        <th>تاريخ النشر</th>
-                        <th>دار النشر</th>
-                        <th> الحدث</th>
+                        <th> اسم الكتاب </th>
+                        <th> اسم المؤلف </th>
+                        <th> التصنيف </th>
+                        <th> الصفحات </th>
+                        <th> حجم الملف </th>
+                        <th>نوع الملف </th>
+                        <th>التحميلات </th>
+                        <th>عدد القراءة </th>
+                        <th>اللغة </th>
+                        <th>السنة </th>
+                        <th>الحدث </th>
                     </tr>
                 </thead>
+
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>حسين</td>
-                        <td>علي</td>
-                        <td>2020</td>
-                        <td>نور</td>
-                        <td class="action-btn">
-                            <button class="btn delete" onclick="window.location='page2.php?id=5'"><i class="fa-solid fa-trash"></i></button>
-                            <button class="btn update" onclick="window.location='updateBook.php?updateID=5'"><i class="fa-solid fa-pen"></i></button>
-                        </td>
-                    </tr>
+                    <?php foreach ($allBooks as $books): ?>
+                        <tr>
+                            <td><?php echo $books['id'] ?></td>
+                            <td><?php echo $books['title'] ?></td>
+                            <td><?php echo $books['NameAuthor'] ?></td>
+                            <td><?php echo $books['titleCateogry'] ?></td>
+                            <td><?php echo $books['pages'] ?></td>
+                            <td><?php echo $books['file_size'] ?></td>
+                            <td><?php echo $books['file_type'] ?></td>
+                            <td><?php echo $books['downloads'] ?></td>
+                            <td><?php echo $books['readBook'] ?></td>
+                            <td><?php echo $books['language'] ?></td>
+                            <td><?php echo $books['year'] ?></td>
+
+                            <td class="action-btn">
+                                <button class="btn delete" onclick="window.location='update?ID=1'"><i class="fa-solid fa-trash"></i></button>
+                                <button class="btn update" onclick="window.location='update?='"><i class="fa-solid fa-pen"></i></button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>

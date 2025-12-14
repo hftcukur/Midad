@@ -42,19 +42,17 @@ body {
    background-color: var(--color-secondary);
    color: var(--color-text-secondary);
    font-size: 16px;
-   display: flex;
-   justify-content: space-between;
 }
 
 main {
-   width: 80%;
+   width: 100%;
 }
 
 header {
    background-color: var(--background-header);
    z-index: 3847594385;
-   width: 20%;
-   height: 100vh;
+   width: 100%;
+   height: 6rem;
    border-radius: var(--Radius);
 }
 
@@ -72,8 +70,8 @@ header {
 }
 header .container {
    display: flex;
-   flex-direction: column;
-   text-align: center;
+   justify-content: space-between;
+   align-items: center;
 }
 
 header .container .logo-image a h1 {
@@ -82,20 +80,21 @@ header .container .logo-image a h1 {
 
 ul {
    display: flex;
-   flex-direction: column;
-   margin-top: 1rem;
+   width: 70%;
+   justify-content: space-between;
 }
 
 ul li {
-   width: 100%;
+   width: 50%;
    list-style: none;
-
+   display: flex;
+   color: var(--btn);
+   margin: 0px 1rem;
 }
 
 ul li a {
    width: 100%;
    padding: 0.7rem 0.5rem;
-   height: 100%;
    display: flex;
    justify-content: space-between;
    align-items: center;
@@ -105,9 +104,7 @@ ul li a {
 }
 
 ul li :hover {
-   background-color: var(--btn);
-   border-radius: var(--Radius);
-   color: var(--color-bg);
+   color: var(--btn-hover);
 }
 
 
@@ -118,12 +115,21 @@ ul li :hover {
 
 .container .main-content {
    width: 100%;
-   height: 20vh;
+   height: 15vh;
    display: flex;
    justify-content: space-between;
    position: relative;
    padding-top: 3rem;
 
+}
+.container .header {
+   width: 100%;
+   background-color: black;
+ height: 5vh;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 1rem;
 }
 
 .container .main-content .add-new-book {
@@ -210,10 +216,9 @@ ul li :hover {
 
 .container .table-books {
    width: 100%;
-   height: 55vh;
+   height: 60vh;
    border-radius: var(--Radius);
-   margin-top: 3rem;
-   overflow: hidden;
+   overflow-y: scroll;
 }
 
 .container .table-books table {

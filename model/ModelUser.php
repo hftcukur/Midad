@@ -1,7 +1,7 @@
 <?php
-include_once('CoreModel.php');
+include_once('BaseModel.php');
 
-class ModelUser extends CoreModel
+class ModelUser extends BaseModel
 {
     protected $database;
     function __construct($database)

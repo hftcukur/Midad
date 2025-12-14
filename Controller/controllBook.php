@@ -8,7 +8,12 @@ class ControllBook
     }
     public function getAll()
     {
-        return  $allBooks = $this->modelBook->join_books_authors();
+         $allBooks = $this->modelBook->loadAllBooks();
+         return $allBooks;
+    }
+    function getInfoBookAndAuthor()
+    {
+        return $this->modelBook->join_books_authors();
     }
     function getAllCategory()
     {
@@ -68,7 +73,7 @@ class ControllBook
 
     public function search($name)
     {
-        return $this->modelBook->searchBook($name);
+        return $this->modelBook->search($name);
     }
     function getBookByCategory($id)
     {

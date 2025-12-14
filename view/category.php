@@ -5,7 +5,7 @@
         <div class="header-books">
             <ul>
                 <?php foreach ($allCategory as $rang): ?>
-                    <li class="rang-author"><a href="books?id_category=<?php echo $rang['id_category'] ?>"><?php echo $rang['title_category'] ?> </a></li>
+                    <li class="rang-author"><a href="category?id_category=<?php echo $rang['id_category'] ?>"><?php echo $rang['title_category'] ?> </a></li>
                 <?php endforeach; ?>
             </ul>
         </div>
@@ -22,6 +22,7 @@
     </section>
     <section class="container">
         <div class="books_madad">
+            
             <?php foreach ($category as $book): ?>
                 <div class="box_madad" title="<?= $book['title'] ?>">
                     <a href="book_ditles?bookID=<?= $book['id_book'] ?>" class="link-book">
