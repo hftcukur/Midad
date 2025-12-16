@@ -95,4 +95,11 @@ class ControllBook
     function incrementReadBook($id){
         $this->modelBook->incrementReadBook($id);
     }
+    public function OtherBooks(){
+        $OtherBooks = $this->modelBook->LoadOtherBooks();
+        if(empty($OtherBooks)){
+        return []; 
+        }
+        return $OtherBooks;
+    }
 }

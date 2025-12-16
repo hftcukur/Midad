@@ -99,4 +99,12 @@ class ModelBook   extends BaseModel
     $stmt = $this->database->prepare($queryIncrementDonwnload);
     $stmt->execute([$id]);
   }
+  // Load 15 Books To Show in Page Dititles Section Other Books
+  function LoadOtherBooks()
+  {
+    $QueryOtherBooks = "SELECT title,id FROM view_book	 limit 15  ";
+    $stmt = $this->database->prepare($QueryOtherBooks);
+    $stmt->execute();
+   return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  } 
 }

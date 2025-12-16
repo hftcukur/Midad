@@ -270,8 +270,8 @@ ul li :hover {
 /* start page add book */
 .container .box-add-book {
    width: 100%;
-   min-height: 550px;
-   margin: 0 auto;
+   min-height: 530px;
+    margin: 0 auto;
    margin-top: 2rem;
    padding: 1.5rem;
    border-radius: var(--Radius);

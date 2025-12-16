@@ -15,7 +15,7 @@
     <section class="container">
         <section class="about-us">
             <div class="box-about">
-                <img src="public/images/online-education.svg" alt="">
+                <img src="public/images/online-education.svg" alt="" loading="eager">
                 <h3>80,000,00 زائر شهرياً</h3>
                 <p>يزور موقع مكتبة مِداد اكثر من 8 مليون زائر مهتم بالكتب العربية شهرياً حول العالم</p>
             </div>
@@ -37,7 +37,7 @@
         </section>
         <div class="book_results">
             <div class="result-books" title="الأشهر اليوم">
-                <a href="">
+                <a href="" >
                     <img src="public/images/trend_books2.svg" alt="الأشهر اليوم">
                     <p> الأشهر اليوم</p>
                 </a>

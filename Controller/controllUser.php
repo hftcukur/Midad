@@ -19,20 +19,37 @@
         }
         public function insert($username, $email, $password)
         {
-            if (empty($username) || empty($email) || empty($password)) {
-                header("Location:register?errorMsg" . urldecode("خطاء يجب إدخال البيانات"));
-                exit();
+            $username = strtolower(trim($username));
+            $email = strtolower(trim($email));
+            $password = trim($password);
+            if (empty($username)) {
+                return ['emptyName' => "يرجاء املاء حقل الاسم"];
+            }
+            if (strlen($username) < 3 || strlen($username) >= 30) {
+                return ['lenghtUsername' => 'يرجاء ان يكون الاسم بين 3 و 30 حرف'];
+            }
+            if (empty($email)) {
+                return ['emptyEmail' => 'يرجاءاملاء حقل البريد الالكتروني'];
             }
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                header("Location:register?errorMsg" . urldecode("لبريد الإلكتروني غير صالح"));
-                exit();
+                return ['invalidEmail' => 'يرجاء املاء حقل البريد'];
+            }
+            if (empty($password)) {
+                return ['emptyPassword' => 'يرجاء إملاء حقل كلمة المرور'];
+            }
+            if (strlen($password)   < 10  || strlen($password) >= 15) {
+                return ['lenghtPassword' => 'يرجاء املا كلمة المرور  بين 10 و 15 حرف'];
             }
             $token = bin2hex(random_bytes(32));
-            setcookie('remember_token', $token, time() + 86400 * 30, "/");
-            $_SESSION['username'] = $username;
-            $ok =  $this->Model->insert($username, $email, $password,$token);
-            if($ok){
+            $resultRegister =  $this->Model->insert($username, $email, $password, $token);
+            
+            if ($resultRegister) {
+                setcookie('remember_token', $token, time() + 86400 * 30, "/");
+                $_SESSION['username'] = $username;
                 header("Location:home");
+                exit();
+            } else {
+                return ['invalidRegister' => 'فشل انشاء حساب'];
             }
         }
         public function update($username, $email)
@@ -63,6 +80,6 @@
         }
         function checkToken($token)
         {
-           return  $this->Model->checkToken($token);
+            return  $this->Model->checkToken($token);
         }
     }

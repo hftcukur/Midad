@@ -1,4 +1,4 @@
-<?php include(__DIR__ . '/../includes/header.php');?>
+<?php include(__DIR__ . '/../includes/header.php'); ?>
 <main>
     <section class="container categories">
         <div class="header-books">
