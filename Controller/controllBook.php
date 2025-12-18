@@ -11,7 +11,7 @@ class ControllBook
          $allBooks = $this->modelBook->loadAllBooks();
          return $allBooks;
     }
-    function getInfoBookAndAuthor()
+    function  getInfoBookAndAuthor()
     {
         return $this->modelBook->join_books_authors();
     }
@@ -71,7 +71,7 @@ class ControllBook
         return "فشل الإضافة";
     }
 
-    public function search($name)
+    public   function search($name)
     {
         return $this->modelBook->search($name);
     }

@@ -1,5 +1,6 @@
     <?php
     session_start();
+    
     include_once  'model/ModelBook.php';
     include_once  'model/ModelUser.php';
     include_once  'model/ModelAuthor.php';
@@ -93,21 +94,21 @@
                 break;
             case Route::register->value:
                 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_register'])) {
-                    $error = $controllUser->insert($_POST['username'], $_POST['email'], $$_POST['password']);
+                    $error = $controllUser->insert($_POST['username'], $_POST['email'], $_POST['password']);
                 }
                 require_once('view/' . $route[$URL]);
                 break;
             case Route::login->value:
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     if (isset($_POST['login'])) {
-                        $email = $_POST['email'];
-                        $password = $_POST['password'];
                         if ($_POST['login-as'] == 'user') {
-                            $controllUser->isLoggedIn($email, $password);
-                            exit();
+                            $email = $_POST['email'];
+                            $password = $_POST['password'];
+                            $errorLogin = $controllUser->isLoggedIn($email, $password);
                         } else {
-                            $controllAdmin->isLoggedIn($email, $password);
-                            exit();
+                            $email = $_POST['email'];
+                            $password = $_POST['password'];
+                            $errorLogin = $controllAdmin->isLoggedIn($email, $password);
                         }
                     }
                 }
@@ -123,8 +124,7 @@
                     $controllBook->incrementDonwnload($_POST['idDownloadBook']);
                 }
                 if (isset($_POST['idReadBook'])) {
-                    $id = $_POST['idReadBook'];
-                    $controllBook->incrementReadBook($id);
+                    $controllBook->incrementReadBook($_POST['idReadBook']);
                 }
                 $OtherBooks = $controllBook->OtherBooks();
                 $infoBook = $controllBook->getInfoBookByID($id);

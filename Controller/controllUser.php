@@ -42,7 +42,7 @@
             }
             $token = bin2hex(random_bytes(32));
             $resultRegister =  $this->Model->insert($username, $email, $password, $token);
-            
+
             if ($resultRegister) {
                 setcookie('remember_token', $token, time() + 86400 * 30, "/");
                 $_SESSION['username'] = $username;
@@ -68,14 +68,28 @@
         }
         public function isLoggedIn($email, $password)
         {
-
+            $email = strtolower(trim($email));
+            $password = trim($password);
+            if (empty($email)) {
+                return ['emptyEmail' => 'يرجاء ملاء الحقل'];
+            }
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                return ['invalidEmail' => 'غلط في البريد الالكتروني'];
+            }
+            if (empty($password)) {
+                return ['emptyPass' => 'يرجاء ملاء الحقل'];
+            }
+            $lenghtPassword  = strlen($password);
+            if ($lenghtPassword  < 10 || $lenghtPassword >= 15) {
+                return ['lenghtPass' => 'يرجاء املا كلمة المرور  بين 10 و 15 حرف'];
+            }
             $hashPassword = Encryption($password);
+            
             if ($this->Model->checkLogin($email, $hashPassword)) {
                 header("location:home");
                 exit();
             } else {
-                header("location: login?Message=" . urlencode("يرجاء انشاء حساب اولاُ"));
-                exit();
+                return ['filedLogin' => 'يرجاء انشاء حساب اولاً'];
             }
         }
         function checkToken($token)

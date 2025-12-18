@@ -18,7 +18,7 @@ class  ModelAdmin
     }
      function checkLogin($email,$password){
      
-       $QueryIsLoggin = "";
+       return false;
      }
 
        public function insert($name, $email, $password)

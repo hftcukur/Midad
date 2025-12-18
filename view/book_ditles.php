@@ -55,18 +55,18 @@ include(__DIR__ . '/../includes/header.php'); ?>
       <div class="last-book">
         <h3>كتب أخرى</h3>
         <ul>
-          <?php foreach($OtherBooks as $books): ?>
-            <li> <a href="book_ditles?bookID=<?= $books['id']?>"> <?= $books['title'] ?></a> <i class="fas fa-book"></i></li>
-            <?php endforeach; ?>
+          <?php foreach ($OtherBooks as $books): ?>
+            <li> <a href="book_ditles?bookID=<?= $books['id'] ?>"> <?= $books['title'] ?></a> <i class="fas fa-book"></i></li>
+          <?php endforeach; ?>
         </ul>
       </div>
     </div>
     <section class="info_book">
-      <div class="action_book"> 
-        <a href="<?php echo $infoBook['book_url']; ?>" download data-id="<?php echo $infoBook['id_book']?> " onclick="incrementDownload(this)"><i class="fas fa-download"></i> <?php echo $infoBook['download']?></a>
-        <a href="<?php echo $infoBook['book_url']; ?>" target="_blank"  data-id="<?php echo $infoBook['id_book']?>" onclick="incrementReadBook(this)"> <i class="fa-solid fa-book-open"></i> <?php echo $infoBook['readBook']?></a>
+      <div class="action_book">
+        <a href="<?php echo $infoBook['book_url']; ?>" download data-id="<?php echo $infoBook['id_book'] ?> " onclick="incrementDownload(this)"><i class="fas fa-download"></i> <?php echo $infoBook['download'] ?></a>
+        <a href="<?php echo $infoBook['book_url']; ?>" target="_blank" data-id="<?php echo $infoBook['id_book'] ?>" onclick="incrementReadBook(this)"> <i class="fa-solid fa-book-open"></i> <?php echo $infoBook['readBook'] ?></a>
         <button class="sharing"><i class="fas fa-share-alt"></i>مشاركة</button>
-        <!-- <button class="btn-like-book"><i class="fas fa-thumbs-up"></i></button> -->
+        <button class="btn-like-book"><i class="fas fa-thumbs-up"></i></button>
       </div>
     </section>
     <div class="book_descrption">

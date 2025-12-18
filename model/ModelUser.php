@@ -11,7 +11,14 @@ class ModelUser extends BaseModel
 
     public function checkLogin($email, $password)
     {
-        return true;
+        $queryLogin = "SELECT * FROM users WHERE email = ?";
+        $stmt = $this->database->prepare($queryLogin);
+        $stmt->execute([$email]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (empty($result)) {
+            return false;
+        }
+        return $result;
     }
     public function update($username, $email) {}
     function checkToken($token)
@@ -20,9 +27,14 @@ class ModelUser extends BaseModel
         $stmt = $this->database->prepare($queryToken);
         $stmt->execute([$token]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        if(empty($result)){
+        if (empty($result)) {
             return false;
         }
         return $result;
+    }
+    function updateToken($newToken,$email)
+    {
+        $queryUpdateToken = "UPDATE users SET token = ? WHERE email = ?";
+        
     }
 }

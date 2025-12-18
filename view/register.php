@@ -8,7 +8,7 @@ include(__DIR__ . '/../includes/header.php'); ?>
                 <?php if (isset($error['invalidRegister'])): ?>
                     <span> <?php echo $error['invalidRegister']; ?> </span>
                 <?php endif; ?>
-                <form action="/Madad/register" method="POST">
+                <form action="" method="POST">
                     <label for="username">اسم المستخدم</label>
                     <input type="text" name="username" id="username" value="username" minlength="3" maxlength="30" required>
                     <?php if (isset($error['emptyName'])): ?>
