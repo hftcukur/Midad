@@ -22,12 +22,12 @@ class ControllBook
     public function findByID($id)
     {
 
-        return $this->modelBook->findByID($id);
+        return $this->modelBook->findOneByid($id);
     }
     public function deleteBook($id)
     {
 
-        return $this->modelBook->deleteBook($id);
+        return $this->modelBook->delete($id);
     }
     public function updateBook($id, $bookName, $authorName, $publish_year, $category, $pages, $description, $path)
     {

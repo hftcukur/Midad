@@ -4,7 +4,7 @@ class ModelBook   extends BaseModel
 {
   public function __construct($database,)
   {
-    parent::__construct($database, 'books');
+    parent::__construct($database, 'books', 'id_book');
   }
 
   //  Insert New Book
@@ -105,6 +105,13 @@ class ModelBook   extends BaseModel
     $QueryOtherBooks = "SELECT title,id FROM view_book	 limit 15  ";
     $stmt = $this->database->prepare($QueryOtherBooks);
     $stmt->execute();
-   return $stmt->fetchAll(PDO::FETCH_ASSOC);
-  } 
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+  // function FindBook($id)
+  // {
+  //   $QueryFind = "SELECT * FROM $this->table  WHERE $this->primaryKey = ?";
+  //   $stmt = $this->database->prepare($QueryFind);
+  //   $stmt->execute([$id]);
+  //   return $stmt->fetch(PDO::FETCH_ASSOC);
+  // }
 }

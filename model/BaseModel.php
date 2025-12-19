@@ -1,12 +1,14 @@
 <?php
-class BaseModel 
+class BaseModel
 {
     protected $database;
     protected $table;
-    function  __construct($database, $table)
+    protected $primaryKey;
+    function  __construct($database, $table ,$primaryKey)
     {
         $this->database = $database;
         $this->table = $table;
+        $this->primaryKey = $primaryKey;
     }
     public function loadAll()
     {
@@ -15,15 +17,19 @@ class BaseModel
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function findByID($id) {
-        $queryFind = "";
-    }
-    public function delete() {}
-    public function insert($username, $email, $password)
-    {
-        $query = "INSERT INTO $this->table (username, email, password) VALUES (?, ?, ?)";
-        $stmt = $this->database->prepare($query);
 
-        return $stmt->execute([$username, $email, $password]);
+    public function delete($id)
+    {
+        $QueryDelete = "DELETE FROM $this->table WHERE $this->primaryKey = ?";
+        $stmt = $this->database->prepare($QueryDelete);
+        return $stmt->execute([$id]);
     }
+    function findOneByid($id){
+      $QueryFind = "SELECT * FROM $this->table  WHERE $this->primaryKey = ?";
+      $stmt = $this->database->prepare($QueryFind);  
+      $stmt->execute([$id]);
+      return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+
 }

@@ -1,20 +1,8 @@
 <?php
-class controllAdmin
+include_once 'ControllUser.php';
+class controllAdmin extends ControllUser
 {
-    private $Model;
-    function __construct($model)
-    {
-        $this->Model = $model;
-    }
-    function getAllAdmins()
-    {
-        return $this->Model->loadAll();
-    }
-    function addAdmin($username, $email, $password)
-    {
 
-        $this->Model->insert($username, $email, $password);
-    }
     public function isLoggedIn($email, $password)
     {
         $email = strtolower(trim($email));

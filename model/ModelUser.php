@@ -6,7 +6,7 @@ class ModelUser extends BaseModel
     protected $database;
     function __construct($database)
     {
-        parent::__construct($database, "users");
+        parent::__construct($database, "users",'id');
     }
 
     public function checkLogin($email, $password)

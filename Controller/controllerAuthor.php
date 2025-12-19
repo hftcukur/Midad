@@ -6,10 +6,15 @@ class ControllerAuthor
   {
     $this->model = $model;
   }
-  public function findByID($id)
+  public function findOneByid($id)
   {
 
-    return $this->model->findByID($id);
+    return $this->model->loadInfoAuthorByID($id);
+  }
+  public function findMoreOne($id)
+  {
+
+    return $this->model->loadAllAuthorBook($id,);
   }
   public function getAll()
   {
@@ -37,12 +42,5 @@ class ControllerAuthor
     $result = $this->model->insert($nameAuthor, $pathImage, $bio);
     return ($result) ? "تم إضافة المؤلف بنجاح" : "فشل إضافة المؤلف";
   }
-  public function getBookAuthor($id)
-  {
-    $has = $this->model->loadBookByAuthorID($id);
-    if (!$has) {
-      return "ليس لديه كتب";
-    }
-    return $has;
-  }
+  
 }

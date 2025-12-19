@@ -20,7 +20,7 @@
         </div>
     </section>
     <div class="container">
-        <div class="table-users">
+        <div class="table-books">
             <table>
                 <thead>
                     <tr>
@@ -29,6 +29,7 @@
                         <th> البريد الالكتروني</th>
                         <th> كلمة المرور</th>
                         <th> تاريخ انشاء الحساب</th>
+                        <th> الحدث</th>
                     </tr>
                 </thead>
                 <tbody>

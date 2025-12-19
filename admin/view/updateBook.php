@@ -17,7 +17,7 @@ $Message ;
 
                             <div class="box-form">
                                 <label for="book_name">اسم الكتاب</label>
-                                <input type="text" name="bookName" id="book_name" placeholder="ادخل اسم الكتاب" required value="<?php $updateBook['title']?>">
+                                <input type="text" name="bookName" id="book_name" placeholder="ادخل اسم الكتاب" required value="<?php  echo $updateBook['title']?>">
                             </div>
                             <div class="box-form">
 
@@ -36,7 +36,7 @@ $Message ;
                             <div class="box-form">
 
                                 <label for="date">سنة النشر</label>
-                                <input type="date" name="publish_year" id="date" placeholder="ادخل سنة النشر" required>
+                                <input type="date" name="publish_year" id="date" placeholder="ادخل سنة النشر" required value="<?php echo $updateBook['year']?>">
                             </div>
                             <div class="box-form">
 
@@ -57,13 +57,16 @@ $Message ;
 
                             <div class="box-form">
                                 <label for="pages">عدد الصفحات </label>
-
-                                <input type="number" name="pages" id="pages" placeholder="ادخل عدد الصفحات" required>
+                                <input type="number" name="pages" id="pages" placeholder="ادخل عدد الصفحات" required value="<?php echo $updateBook['pages'] ?>">
                             </div>
                             <div class="box-form">
-                                <label for="file_size">حجم الملف </label>
-                                <input type="number" name="file_size" id="file_size" placeholder="ادخل حجم الملف" required>
+                                <label for="file_type"> نوع الملف </label>
+                                <select name="file_type" id="file_type">
+                                    <option value="PDF"><?PHP ECHO $updateBook['file_type']?></option>
+                                    <option value="ZIP">ZIP</option>
+                                </select>
                             </div>
+                       
                         </div>
                         <div class="fisrt-section">
 
@@ -71,6 +74,7 @@ $Message ;
                                 <label for="language">اللغة</label>
                                 <select name="language" id="language">
                                     <option value="العربية">العربية</option>
+                                    <option value="الانجليزية">الانجليزية</option>
                                 </select>
                             </div>
                             <div class="box-form">
@@ -84,11 +88,13 @@ $Message ;
                         <input type="file" id="fileInput" name="image_url" accept="image/*">
                     </div>
                     <div class="box-form">
-                        <textarea name="description" id=""></textarea>
+                        <textarea name="description" id="">
+                             <?php echo $updateBook['description']; ?>
+                        </textarea>
                     </div>
 
 
-                    <button type="submit" id="btnAddNewBook" name="addBook"> إضافة</button>
+                    <button type="submit" id="btnAddNewBook" name="updateBook"> تعديل</button>
                 </form>
             </div>
 

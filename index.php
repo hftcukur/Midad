@@ -1,6 +1,6 @@
     <?php
     session_start();
-    
+
     include_once  'model/ModelBook.php';
     include_once  'model/ModelUser.php';
     include_once  'model/ModelAuthor.php';
@@ -135,8 +135,8 @@
                     $id = $_GET['authroID'];
                 }
 
-                $infoAuthor = $controllAuthor->findByID($id);
-                $allBooksAuthor = $controllAuthor->getBookAuthor($id);
+                $infoAuthor = $controllAuthor->findOneByid($id);
+                $allBooksAuthor = $controllAuthor->findMoreOne($id);
                 require_once('view/' . $route[$URL]);
                 break;
             case Route::category->value:
@@ -164,7 +164,7 @@
                 require_once('admin/view/' . $route[$URL]);
                 break;
             case Route::pageAdmin->value:
-                $allAdmins = $controllAdmin->getAllAdmins();
+                $allAdmins = $controllAdmin->show();
                 require_once('admin/view/' . $route[$URL]);
                 break;
             case Route::pageAdminAddBook->value:
@@ -191,7 +191,7 @@
                         $username = $_POST['adminName'];
                         $email = $_POST['adminEmail'];
                         $password = $_POST['adminPassword'];
-                        $controllAdmin->addAdmin($username, $email, $password);
+                        $controllAdmin->insert($username, $email, $password);
                     }
                 }
                 require_once('admin/view/' . $route[$URL]);
@@ -210,10 +210,12 @@
                 require_once('admin/view/' . $route[$URL]);
                 break;
             case Route::updateBook->value:
-                if (isset($_POST['ID'])) {
-                    $ID = $_POST['ID'];
-                    $updateBook = $controllBook->getAll();
+                if (isset($_GET['ID'])) {
+                    $id = $_GET['ID'];
+                    $updateBook = $controllBook->findByID($id);
                 }
+                $authors  = $controllAuthor->getAll();
+                $allCategory = $controllBook->getAllCategory();
                 require_once('admin/view/' . $route[$URL]);
                 break;
             case Route::ManagementUsers->value:

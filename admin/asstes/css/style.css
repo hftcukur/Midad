@@ -215,7 +215,9 @@ ul li :hover {
 }
 
 .container .table-books {
-   width: 100%;
+   width: 90vw;
+   position: relative;
+   left: 3rem;
    height: 60vh;
    border-radius: var(--Radius);
    overflow-y: scroll;

@@ -55,8 +55,8 @@
                             <td><?php echo $books['year'] ?></td>
 
                             <td class="action-btn">
-                                <button class="btn delete" onclick="window.location='update?ID=1'"><i class="fa-solid fa-trash"></i></button>
-                                <button class="btn update" onclick="window.location='update?='"><i class="fa-solid fa-pen"></i></button>
+                                <button class="btn update" onclick="window.location='update?ID=<?= $books['id'] ?>"><i class="fa-solid fa-trash"></i></button>
+                                <a href="update?ID=<?= $books['id'] ?>"><i class="fa-solid fa-pen"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

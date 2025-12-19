@@ -16,6 +16,21 @@
         public function findByID($id)
         {
             $detailsUser = $this->Model->findByID($id);
+            return $detailsUser;
+        }
+        public function update($username, $email)
+        {
+            return $this->Model->update($username, $email);
+        }
+        
+        public function delete($id)
+        {
+            return $this->Model->delete($id);
+        }
+        
+        public function search($username)
+        {
+            $resultSearch = $this->Model->search($username);
         }
         public function insert($username, $email, $password)
         {
@@ -51,20 +66,6 @@
             } else {
                 return ['invalidRegister' => 'فشل انشاء حساب'];
             }
-        }
-        public function update($username, $email)
-        {
-            return $this->Model->update($username, $email);
-        }
-
-        public function delete($id)
-        {
-            return $this->Model->delete($id);
-        }
-
-        public function search($username)
-        {
-            $resultSearch = $this->Model->search($username);
         }
         public function isLoggedIn($email, $password)
         {
