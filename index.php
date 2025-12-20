@@ -23,7 +23,7 @@
     $ModelAuthor = new ModelAuthor($database);
     $controllAuthor = new ControllerAuthor($ModelAuthor);
     $URL = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-    $parts = explode('/', $_SERVER['REQUEST_URI']);
+    $parts = explode('/', $URL);
     $query = $_GET['query'] ?? '';
     enum Route: string
     {
@@ -70,7 +70,7 @@
         switch ($URL) {
             case Route::home->value:
                 $allBooks = $controllBook->getInfoBookAndAuthor();
-                if ($_COOKIE['remember_token']) {
+                if (isset($_COOKIE['remember_token'])) {
                     $getToken  = $controllUser->checkToken($_COOKIE['remember_token']);
                     $_SESSION['id_user'] = $getToken['id'];
                     $_SESSION['username'] = $getToken['username'];
@@ -168,19 +168,7 @@
                 require_once('admin/view/' . $route[$URL]);
                 break;
             case Route::pageAdminAddBook->value:
-                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addBook'])) {
-                    $bookName = $_POST['bookName'];
-                    $year = $_POST['publish_year'];
-                    $id_category = $_POST['id_category'];
-                    $id_author = $_POST['id_author'];
-                    $pages = $_POST['pages'];
-                    $file_size = $_POST['file_size'];
-                    $description = $_POST['description'];
-                    $image = $_FILES['image_url'];
-                    $book = $_FILES['book_url'];
-                    $language = $_POST['language'];
-                    $Message  = $controllBook->addBook($bookName, $id_author, $year, $id_category, $pages, $description, $image, $file_size, $language, $book);
-                }
+                $Message  = $controllBook->addBook();
                 $allCategory = $controllBook->getAllCategory();
                 $authors = $controllAuthor->getAll();
                 require_once('admin/view/' . $route[$URL]);
@@ -210,12 +198,10 @@
                 require_once('admin/view/' . $route[$URL]);
                 break;
             case Route::updateBook->value:
-                if (isset($_GET['ID'])) {
-                    $id = $_GET['ID'];
-                    $updateBook = $controllBook->findByID($id);
-                }
                 $authors  = $controllAuthor->getAll();
                 $allCategory = $controllBook->getAllCategory();
+                $updateBook = $controllBook->findByID();
+                $Message = $controllBook->updateBook();
                 require_once('admin/view/' . $route[$URL]);
                 break;
             case Route::ManagementUsers->value:

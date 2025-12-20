@@ -107,11 +107,8 @@ class ModelBook   extends BaseModel
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
-  // function FindBook($id)
-  // {
-  //   $QueryFind = "SELECT * FROM $this->table  WHERE $this->primaryKey = ?";
-  //   $stmt = $this->database->prepare($QueryFind);
-  //   $stmt->execute([$id]);
-  //   return $stmt->fetch(PDO::FETCH_ASSOC);
-  // }
+   function udpateBook($id, $bookName, $id_author, $year, $id_category, $pages, $description, $image, $file_size,$file_type, $language, $bookURL){
+    $QueryUpdateBook = "UPDATE books SET title = ? , id_author = ?, year = ? , id_category = ? ,
+     pages = ? ,description = ? , image = ? ,file_size = ? , language = ? ,book_url = ? , file_type = ?" ;
+   }
 }

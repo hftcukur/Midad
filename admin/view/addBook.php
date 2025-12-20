@@ -1,72 +1,64 @@
-<?php require(__DIR__ . '/../includes/header.php');
-
-$Message ;
-?>
+<?php require(__DIR__ . '/../includes/header.php'); ?>
 <main>
     <section>
         <div class="container">
-
             <div class="box-add-book">
-                <?php if (!empty($Message)): ?>
-                    <p class="success"> <?php echo $Message ?></p>
-                    <?php endif;?>
+                <?php if ($_SERVER['REQUEST_METHOD'] === 'POST'): ?>
+                <?php if (!empty($Message['successAddBook'])): ?>
+                    <p class="success"> <?php echo $Message['successAddBook'] ?></p>
+                <?php endif; ?>
+                <?php if (!empty($Message['hasInputEmpty'])): ?>
+                    <p class="Notsuccess"> <?php echo $Message['hasInputEmpty'] ?></p>
+                <?php endif; ?>
+                <?php endif; ?>
                 <form action="" method="POST" enctype="multipart/form-data">
                     <div class="content-the-four-input">
-
                         <div class="fisrt-section">
-
                             <div class="box-form">
                                 <label for="book_name">اسم الكتاب</label>
                                 <input type="text" name="bookName" id="book_name" placeholder="ادخل اسم الكتاب" required>
                             </div>
                             <div class="box-form">
-
                                 <label for="author">المؤلف</label>
                                 <select name="id_author" id="author">
                                     <?php foreach ($authors as $author): ?>
                                         <option value="<?php echo $author['id_author'] ?>">
                                             <?php echo $author['name'] ?>
                                         </option>
-
                                     <?php endforeach; ?>
                                 </select>
                             </div>
                         </div>
                         <div class="fisrt-section">
                             <div class="box-form">
-
                                 <label for="date">سنة النشر</label>
                                 <input type="date" name="publish_year" id="date" placeholder="ادخل سنة النشر" required>
                             </div>
                             <div class="box-form">
-
                                 <label for="category">النصنيف</label>
                                 <select name="id_category" id="category">
                                     <?php foreach ($allCategory as $category): ?>
                                         <option value="<?php echo $category['id_category'] ?>">
                                             <?php echo $category['title_category'] ?>
                                         </option>
-
                                     <?php endforeach; ?>
                                 </select>
-
                             </div>
-
                         </div>
                         <div class="fisrt-section">
-
                             <div class="box-form">
                                 <label for="pages">عدد الصفحات </label>
-
                                 <input type="number" name="pages" id="pages" placeholder="ادخل عدد الصفحات" required>
                             </div>
                             <div class="box-form">
-                                <label for="file_size">حجم الملف </label>
-                                <input type="number" name="file_size" id="file_size" placeholder="ادخل حجم الملف" required>
+                                <label for="file_type"> نوع الملف </label>
+                                <select name="file_type" id="file_type">
+                                    <option value="PDF">PDF</option>
+                                    <option value="ZIP">ZIP</option>
+                                </select>
                             </div>
                         </div>
                         <div class="fisrt-section">
-
                             <div class="box-form">
                                 <label for="language">اللغة</label>
                                 <select name="language" id="language">
@@ -81,18 +73,14 @@ $Message ;
                     </div>
                     <div class="box-form">
                         <label for="fileInput" class="upload-btn "> إضافة صورة</label>
-                        <input type="file" id="fileInput" name="image_url" accept="image/*">
+                        <input type="file" id="fileInput" name="image_url" accept="image/*" required>
                     </div>
                     <div class="box-form">
                         <textarea name="description" id=""></textarea>
                     </div>
-
-
                     <button type="submit" id="btnAddNewBook" name="addBook"> إضافة</button>
                 </form>
             </div>
-
         </div>
     </section>
 </main>
-<!-- <script src="../asstes/js/main.js"></script> -->

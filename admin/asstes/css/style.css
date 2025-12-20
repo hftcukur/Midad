@@ -62,12 +62,16 @@ header {
 
 
 }
+
 .success {
    color: var(--btn);
 }
-.notSuccess{
-   color: red;
+
+.Notsuccess {
+   color: #8b1c23 ;
+  font-size: 1.2rem;
 }
+
 header .container {
    display: flex;
    justify-content: space-between;
@@ -122,14 +126,15 @@ ul li :hover {
    padding-top: 3rem;
 
 }
+
 .container .header {
    width: 100%;
    background-color: black;
- height: 5vh;
- display: flex;
- justify-content: space-between;
- align-items: center;
- padding: 1rem;
+   height: 5vh;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 1rem;
 }
 
 .container .main-content .add-new-book {
@@ -240,21 +245,24 @@ ul li :hover {
 .container .table-books table thead tr th {
    padding: 0.7rem;
 }
+
 .container .table-books table tbody td {
    padding: 0.5rem;
 
 }
+
 .container .table-books table tbody tr {
-    background-color: #f9f9f9;
-    border-bottom: 1px solid var(--color-text-secondary);
+   background-color: #f9f9f9;
+   border-bottom: 1px solid var(--color-text-secondary);
 }
+
 .container .table-books table tbody tr .btn {
    padding: 0.5rem 1.5rem;
    border-radius: var(--Radius);
    border: none;
    cursor: pointer;
 
- 
+
 }
 
 .container .table-books table tbody tr .delete,
@@ -272,44 +280,49 @@ ul li :hover {
 /* start page add book */
 .container .box-add-book {
    width: 100%;
-   min-height: 530px;
-    margin: 0 auto;
+   margin: 0 auto;
+   height: fit-content;
    margin-top: 2rem;
    padding: 1.5rem;
    border-radius: var(--Radius);
    box-shadow: var(--box-shadow);
-   
+
 }
 
 .container .box-add-book .adminForm form {
    width: 100%;
 }
-.container .box-add-book .adminForm input  {
+
+.container .box-add-book .adminForm input {
    width: 100%;
 }
+
 .container .box-add-book form .adminForm label {
    position: relative;
    left: 44%;
 }
+
 /* Upload Button */
-#fileInput ,#fileInputBook{
-    display: none;
+#fileInput,
+#fileInputBook {
+   display: none;
 }
 
 .upload-btn {
-    padding: 10px 20px;
-    background-color: var(--background-header);
-    color: var(--color-text-secondary);
-    cursor: pointer;
-    border-radius: 6px;
-    width: 80%;
-    margin: 0px auto;
-    display: block;
-    text-align: center;
-    margin-top: 0.5rem;
-    transition: var(--transition);
+   padding: 10px 20px;
+   background-color: var(--background-header);
+   color: var(--color-text-secondary);
+   cursor: pointer;
+   border-radius: 6px;
+   width: 80%;
+   margin: 0px auto;
+   display: block;
+   text-align: center;
+   margin-top: 0.5rem;
+   transition: var(--transition);
 }
-.fileinputImageAuthor{
+
+.fileinputImageAuthor {
    position: relative;
    top: 15px;
 }
@@ -388,12 +401,14 @@ ul li :hover {
    cursor: pointer;
    transition: var(--transition);
 }
+
 .container .box-add-book form button:hover {
    background-color: var(--btn-hover);
 }
 
 /* Messages */
-.success, .notSuccess {
+.success,
+.notSuccess {
    padding: 0.7rem;
    border-radius: var(--Radius);
    margin-bottom: 1rem;

@@ -2,12 +2,10 @@
 <main>
     <section>
         <div class="container">
-      
             <div class="main-content">
                 <div class="box-admin add-new-book">
                     <a href="addBook">
                         <span> إضافة كتاب</span><i class="fa-solid fa-book-medical"></i>
-
                     </a>
                 </div>
                 <div class="search-book">
@@ -38,7 +36,6 @@
                         <th>الحدث </th>
                     </tr>
                 </thead>
-
                 <tbody>
                     <?php foreach ($allBooks as $books): ?>
                         <tr>
@@ -53,9 +50,8 @@
                             <td><?php echo $books['readBook'] ?></td>
                             <td><?php echo $books['language'] ?></td>
                             <td><?php echo $books['year'] ?></td>
-
                             <td class="action-btn">
-                                <button class="btn update" onclick="window.location='update?ID=<?= $books['id'] ?>"><i class="fa-solid fa-trash"></i></button>
+                                <button class="btn update" onclick="deleteBook(<?= $books['id'] ?>)"><i class="fa-solid fa-trash"></i></button>
                                 <a href="update?ID=<?= $books['id'] ?>"><i class="fa-solid fa-pen"></i></a>
                             </td>
                         </tr>
