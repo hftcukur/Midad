@@ -1,4 +1,6 @@
 <?php
+include __DIR__ . '/../helpers/handlingFiles.php';
+
 class ControllBook
 {
     private $modelBook;
@@ -26,53 +28,16 @@ class ControllBook
             return $this->modelBook->findOneByid($id);
         }
     }
-    public function deleteBook($id)
+    public function deleteBook()
     {
-        if(isset($_POST[''])){
-
+        if (isset($_POST['idDeleletBook'])) {
+            return $this->modelBook->delete($_POST['idDeleletBook']);
         }
-        return $this->modelBook->delete($id);
     }
 
-    //Clean Data Book when Add Or Update Book
-    function processDataBook($image, $bookURL)
-    {
+    //Upload Files Book And Image 
 
-        if (!empty($bookURL['size'])) {
-            $file_size = ((int)($bookURL['size'] / 1024));
-        }
-        if (!$image || empty($image['name'])) {
-            return "لم يتم  رفع الصورة";
-        }
-        $imgName = $image['name'] ?? null;
-        $imgTmp  = $image['tmp_name'] ?? null;
-        $imgExt  = strtolower(pathinfo($imgName, PATHINFO_EXTENSION));
-        $allowed = ['jpg', 'jpeg', 'png', 'webp'];
-        if (!in_array($imgExt, $allowed)) {
-            return "خطأ في تحميل الصورة";
-        }
-        $newImg = uniqid() . "." . $imgExt;
-        $imgFolder = __DIR__ . '/../uploads/image_book/';
-        $imgPathDB = 'uploads/image_book/' . $newImg;
-
-        move_uploaded_file($imgTmp, $imgFolder . $newImg);
-
-        $fileName = $bookURL['name'];
-        $fileTmp  = $bookURL['tmp_name'];
-        $fileExt  = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-
-        $newFile = uniqid() . "." . $fileExt;
-        $fileFolder = __DIR__ . '/../uploads/book_url/';
-        $filePathDB = 'uploads/book_url/' . $newFile;
-
-        move_uploaded_file($fileTmp, $fileFolder . $newFile);
-        return [
-            'PathImage' => $imgPathDB,
-            'PathBook' => $filePathDB,
-            'file_size' => $file_size
-        ];
-    }
-
+    //  Check If Come From Server And  No Error
     function receptionDataBook($action)
     {
 
@@ -125,11 +90,32 @@ class ControllBook
 
         if ($hasError) {
             return $hasError;
-        } else {
-
-            // $resultUpdate =  $this->modelBook->updateBook($id, $bookName, $id_author, $year, $id_category, $pages, $description, $image, $file_size, $file_type, $language, $bookURL);
-            // return ($resultUpdate) ? ['successUpdate' => 'تم تعديل الكتاب'] : ['failedUpdate' => 'فشل تعديل الكتاب'];
         }
+        $id = $_GET['ID'] ?? 0;
+        $bookName = $_POST['bookName'] ?? null;
+        $year = $_POST['publish_year'] ?? null;
+        $id_category = $_POST['id_category'] ?? null;
+        $id_author = $_POST['id_author'] ?? null;
+        $pages = $_POST['pages'] ?? null;
+        $description = $_POST['description'] ?? null;
+        $file_type = $_POST['file_type'] ?? null;
+        $image = $_FILES['image_url'] ?? null;
+        $book = $_FILES['book_url'] ?? null;
+        $language = $_POST['language'] ?? null;
+        // Use  Data Book After Prossing 
+        $feedBackUploadImage = HandlingFiles::uploadImage($image, __DIR__ . '/../uploads/image_book/', 'uploads/image_book/');
+        $feedBackUploadBook = HandlingFiles::uploadBook($book, __DIR__ . '/../uploads/book_url/', 'uploads/book_url/');
+        if (isset($feedBackUploadBook['hasInputEmpty'])) {
+            return  $feedBackUploadBook;
+        }
+        if (isset($feedBackUploadImage['hasInputEmpty'])) {
+            return $feedBackUploadImage;
+        }
+        $file_size = $feedBackUploadBook['file_size'];
+        $pathBook = $feedBackUploadBook['PathBook'];
+        $pathImage = $feedBackUploadImage['pathImage'];
+        $resultUpdate =  $this->modelBook->updateBook($id, $bookName, $id_author, $year, $id_category, $pages, $description, $pathImage, $file_size, $file_type, $language, $pathBook);
+        return ($resultUpdate) ? ['successUpdate' => 'تم تعديل الكتاب'] : ['failedUpdate' => 'فشل تعديل الكتاب'];
     }
     public function addBook()
     {
@@ -149,13 +135,17 @@ class ControllBook
             $book = $_FILES['book_url'] ?? null;
             $language = $_POST['language'] ?? null;
             // Use  Data Book After Prossing 
-            $dataBook = $this->processDataBook($image, $book);
-            if (is_string($dataBook)) {
-                return ['hasInputEmpty' => $dataBook];
+            $feedBackUploadImage = HandlingFiles::uploadImage($image, __DIR__ . '/../uploads/image_book/', 'uploads/image_book/');
+            $feedBackUploadBook = HandlingFiles::uploadBook($book, __DIR__ . '/../uploads/book_url/', 'uploads/book_url/');
+            if (isset($feedBackUploadBook['hasInputEmpty'])) {
+                return  $feedBackUploadBook;
             }
-            $file_size = $dataBook['file_size'];
-            $pathImage = $dataBook['PathImage'];
-            $pathBook = $dataBook['PathBook'];
+            if (isset($feedBackUploadImage['hasInputEmpty'])) {
+                return $feedBackUploadImage;
+            }
+            $file_size = $feedBackUploadBook['file_size'];
+            $pathBook = $feedBackUploadBook['PathBook'];
+            $pathImage = $feedBackUploadImage['pathImage'];
             $result = $this->modelBook->insertBook($bookName, $id_author, $year, $id_category, $pages, $description, $file_size, $pathImage, $pathBook, $language);
             if ($result) {
                 return ['successAddBook' => 'تم إضافة الكتاب بنجاح'];

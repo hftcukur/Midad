@@ -61,6 +61,7 @@
         </div>
     </div>
 </main>
+<script src="asstes/js/main.js"></script>
 </body>
 
 </html>

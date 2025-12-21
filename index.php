@@ -161,6 +161,7 @@
             // Admin
             case Route::homePageAdmin->value:
                 $allBooks = $controllBook->getAll();
+                $controllBook->deleteBook();
                 require_once('admin/view/' . $route[$URL]);
                 break;
             case Route::pageAdmin->value:

@@ -37,7 +37,7 @@ include(__DIR__ . '/../includes/header.php'); ?>
               </tr>
               <tr>
                 <td>حجم الملف </td>
-                <td><?php echo $infoBook['file_size'] ?>. ميجا بايت</td>
+                <td><?php echo $infoBook['file_size'] ?>  KB</td>
               </tr>
               <tr>
                 <td>نوع الملف</td>
