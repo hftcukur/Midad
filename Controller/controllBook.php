@@ -35,7 +35,7 @@ class ControllBook
         }
     }
 
-    //Upload Files Book And Image 
+
 
     //  Check If Come From Server And  No Error
     function receptionDataBook($action)
@@ -68,7 +68,7 @@ class ControllBook
                 $_FILES['image_url']['error'] !== UPLOAD_ERR_OK ||
                 $_FILES['image_url']['size'] == 0
             ) {
-                return ['hasInputEmpty' => 'يرجاء إدخال الصورة'];
+                return ['hasFileEmpty' => 'يرجاء إدخال الصورة'];
             }
 
             if (empty($_POST['language'])) {
@@ -79,16 +79,16 @@ class ControllBook
                 $_FILES['book_url']['error'] !== UPLOAD_ERR_OK ||
                 $_FILES['book_url']['size'] == 0
             ) {
-                return ['hasInputEmpty' => 'يرجاء إدخال الكتاب'];
+                return ['hasFileEmpty' => 'يرجاء إدخال الكتاب'];
             }
         }
-        return false;
+        return null;
     }
     public function updateBook()
     {
         $hasError =  $this->receptionDataBook('updateBook');
 
-        if ($hasError) {
+        if (!isset($hasError['hasFileEmpty'])) {
             return $hasError;
         }
         $id = $_GET['ID'] ?? 0;
@@ -99,24 +99,37 @@ class ControllBook
         $pages = $_POST['pages'] ?? null;
         $description = $_POST['description'] ?? null;
         $file_type = $_POST['file_type'] ?? null;
+        $language = $_POST['language'] ?? null;
+        $oldFileSize = $_POST['oldFileSize'] ?? null;
         $image = $_FILES['image_url'] ?? null;
         $book = $_FILES['book_url'] ?? null;
-        $language = $_POST['language'] ?? null;
-        // Use  Data Book After Prossing 
-        $feedBackUploadImage = HandlingFiles::uploadImage($image, __DIR__ . '/../uploads/image_book/', 'uploads/image_book/');
-        $feedBackUploadBook = HandlingFiles::uploadBook($book, __DIR__ . '/../uploads/book_url/', 'uploads/book_url/');
-        if (isset($feedBackUploadBook['hasInputEmpty'])) {
-            return  $feedBackUploadBook;
+        // Use  Data Book After Prossing
+        if ($image['size'] == 0) {
+            $pathImage = $_POST['oldPathImage'];
+        } else {
+            $feedBackUploadImage = HandlingFiles::uploadImage($image, __DIR__ . '/../uploads/image_book/', 'uploads/image_book/');
+            if (isset($feedBackUploadImage['hasInputEmpty'])) {
+                return $feedBackUploadImage;
+            } else {
+                $pathImage = $feedBackUploadImage['pathImage'];
+            }
         }
-        if (isset($feedBackUploadImage['hasInputEmpty'])) {
-            return $feedBackUploadImage;
+        if ($book['size'] == 0) {
+            $file_size = $oldFileSize;
+            $pathBook = $_POST['oldFileBook'];
+        } else {
+            $feedBackUploadBook = HandlingFiles::uploadBook($book, __DIR__ . '/../uploads/book_url/', 'uploads/book_url/');
+            if (isset($feedBackUploadBook['hasInputEmpty'])) {
+                return  $feedBackUploadBook;
+            }
+            $file_size = $feedBackUploadBook['file_size'];
+            $pathBook = $feedBackUploadBook['PathBook'];
         }
-        $file_size = $feedBackUploadBook['file_size'];
-        $pathBook = $feedBackUploadBook['PathBook'];
-        $pathImage = $feedBackUploadImage['pathImage'];
         $resultUpdate =  $this->modelBook->updateBook($id, $bookName, $id_author, $year, $id_category, $pages, $description, $pathImage, $file_size, $file_type, $language, $pathBook);
         return ($resultUpdate) ? ['successUpdate' => 'تم تعديل الكتاب'] : ['failedUpdate' => 'فشل تعديل الكتاب'];
     }
+
+
     public function addBook()
     {
         $hasError = $this->receptionDataBook('addBook');

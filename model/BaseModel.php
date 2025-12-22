@@ -12,7 +12,7 @@ class BaseModel
     }
     public function loadAll()
     {
-        $query = "SELECT * FROM $this->table";
+        $query = "SELECT * FROM $this->table order by $this->primaryKey desc";
         $stmt = $this->database->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -10,6 +10,9 @@
                 <?php if (!empty($Message['hasInputEmpty'])): ?>
                     <p class="Notsuccess"> <?php echo $Message['hasInputEmpty'] ?></p>
                 <?php endif; ?>
+                <?php if (!empty($Message['hasFileEmpty'])): ?>
+                    <p class="Notsuccess"> <?php echo $Message['hasFileEmpty'] ?></p>
+                <?php endif; ?>
                 <?php endif; ?>
                 <form action="" method="POST" enctype="multipart/form-data">
                     <div class="content-the-four-input">

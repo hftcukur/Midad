@@ -72,12 +72,15 @@
                             <div class="box-form">
                                 <label for="fileInputBook" class="upload-btn">إضافة كتاب</label>
                                 <input type="file" name="book_url" id="fileInputBook" placeholder="ادخل  الكتاب" >
+                                <input type="hidden" name="oldFileBook" value="<?php echo $updateBook['book_url']?>">
+                                <input type="hidden" name="oldFileSize" value="<?php echo $updateBook['file_size']?>">
                             </div>
                         </div>
                     </div>
                     <div class="box-form">
                         <label for="fileInput" class="upload-btn "> إضافة صورة</label>
                         <input type="file" id="fileInput" name="image_url" accept="image/*">
+                        <input type="hidden" name="oldPathImage" value="<?php echo $updateBook['image']?>">
                     </div>
                     <div class="box-form">
                         <textarea name="description" id="">
