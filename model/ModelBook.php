@@ -8,13 +8,13 @@ class ModelBook   extends BaseModel
   }
 
   //  Insert New Book
-  function insertBook($bookName, $id_author, $year, $id_category, $pages, $description, $file_size, $imgPathDB, $filePathDB, $language)
+  function insertBook($bookName, $id_author, $year, $id_category, $pages, $description,$file_type, $file_size, $imgPathDB, $filePathDB, $language)
   {
-    $QeruyinsertBook = "INSERT INTO books (title,pages,file_size,image,year,description,id_author,id_category,language,book_url)
-    VALUES (?,?,?,?,?,?,?,?,?,?)
+    $QeruyinsertBook = "INSERT INTO books (title,pages,file_type,file_size,image,year,description,id_author,id_category,language,book_url)
+    VALUES (?,?,?,?,?,?,?,?,?,?,?)
     ";
     $stmt = $this->database->prepare($QeruyinsertBook);
-    return $stmt->execute([$bookName, $pages, $file_size, $imgPathDB, $year, $description, $id_author, $id_category, $language, $filePathDB]);
+    return $stmt->execute([$bookName, $pages, $file_type,$file_size, $imgPathDB, $year, $description, $id_author, $id_category, $language, $filePathDB]);
   }
   // Load All Books
   function loadAllBooks()

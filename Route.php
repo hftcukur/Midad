@@ -1,25 +1,30 @@
 <?php
-class Route
-{
-    private static $route = [];
-    public static function get($path, $callback)
-    {
-        self::$route['GET'][$path] = $callback;
+class Router {
+    private array $getRoutes = [];
+    private array $postRoutes = [];
+
+    // تسجيل مسار GET
+    public function get(string $path, callable $callback): void {
+        $this->getRoutes[$path] = $callback;
     }
-    public static function post($path, $callback)
-    {
-        self::$route['POST'][$path] = $callback;
+
+    // تسجيل مسار POST
+    public function post(string $path, callable $callback): void {
+        $this->postRoutes[$path] = $callback;
     }
-    public static function handle()
-    {
+
+    // تنفيذ التوجيه
+    public function dispatch(): void {
+        $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $method = $_SERVER['REQUEST_METHOD'];
-        $URL = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        if (isset(self::$route[$method][$URL])) {
-            call_user_func(self::$route[$method][$URL]);
-            exit();
+
+        if ($method === 'GET' && isset($this->getRoutes[$url])) {
+            call_user_func($this->getRoutes[$url]);
+        } elseif ($method === 'POST' && isset($this->postRoutes[$url])) {
+            call_user_func($this->postRoutes[$url]);
         } else {
-            require_once('view/404.php');
-            exit();
+            // صفحة 404
+            require 'view/404.php';
         }
     }
 }

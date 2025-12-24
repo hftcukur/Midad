@@ -372,6 +372,7 @@ ul li a:hover {
 .all_authors table {
    width: 100%;
    margin-top: 50px;
+   margin-bottom: 6rem;
 
 }
 
@@ -410,7 +411,9 @@ ul li a:hover {
    padding-top: 100px;
    font-size: 1.5rem;
 }
-
+.title-like-you-book{
+ margin: 1.5rem 0rem;
+}
 .container .book-main {
    width: 100%;
    display: flex;

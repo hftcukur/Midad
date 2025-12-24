@@ -128,6 +128,8 @@
                 }
                 $OtherBooks = $controllBook->OtherBooks();
                 $infoBook = $controllBook->getInfoBookByID($id);
+                // $id_category = $infoBook['id_category'];
+                $bookByCategory = $controllBook->getBookByCategory(1);
                 require_once('view/' . $route[$URL]);
                 break;
             case Route::info_author->value:
@@ -161,7 +163,10 @@
             // Admin
             case Route::homePageAdmin->value:
                 $allBooks = $controllBook->getAll();
-                $controllBook->deleteBook();
+                if (isset($_POST['idDeleletBook'])) {
+                    $id = $_POST['idDeleletBook'];
+                    $controllBook->deleteBook($id);
+                }
                 require_once('admin/view/' . $route[$URL]);
                 break;
             case Route::pageAdmin->value:
@@ -169,7 +174,20 @@
                 require_once('admin/view/' . $route[$URL]);
                 break;
             case Route::pageAdminAddBook->value:
-                $Message  = $controllBook->addBook();
+
+                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addBook'])) {
+                    $bookName = $_POST['bookName'];
+                    $year = $_POST['publish_year'];
+                    $id_category = $_POST['id_category'];
+                    $id_author = $_POST['id_author'];
+                    $pages = $_POST['pages'];
+                    $description = $_POST['description'];
+                    $file_type = $_POST['file_type'];
+                    $image = $_FILES['image_url'];
+                    $book = $_FILES['book_url'];
+                    $language = $_POST['language'];
+                    $Message  = $controllBook->addBook($bookName, $id_author, $year, $id_category, $pages, $description, $file_type, $image, $book, $language);
+                }
                 $allCategory = $controllBook->getAllCategory();
                 $authors = $controllAuthor->getAll();
                 require_once('admin/view/' . $route[$URL]);
@@ -201,8 +219,28 @@
             case Route::updateBook->value:
                 $authors  = $controllAuthor->getAll();
                 $allCategory = $controllBook->getAllCategory();
-                $updateBook = $controllBook->findByID();
-                $Message = $controllBook->updateBook();
+                if (isset($_GET['ID'])) {
+                    $id = (int)$_GET['ID'];
+                    $updateBook = $controllBook->findByID($id);
+                }
+                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateBook'])) {
+                    $id = $_GET['ID'] ?? 0;
+                    $bookName = $_POST['bookName'] ;
+                    $year = $_POST['publish_year'] ;
+                    $id_category = $_POST['id_category'] ;
+                    $id_author = $_POST['id_author'] ;
+                    $pages = $_POST['pages'] ;
+                    $description = $_POST['description'] ;
+                    $file_type = $_POST['file_type'] ;
+                    $language = $_POST['language'] ;
+                    $oldFileSize = $_POST['oldFileSize'] ;
+                     $oldBook = $_POST['oldFileBook'];
+                   $oldImage=  $_POST['oldPathImage'];
+                    $image = $_FILES['image_url'] ;
+                    $book = $_FILES['book_url'] ;
+                    $Message = $controllBook->updateBook($id,$bookName, $id_author, $year,
+                     $id_category, $pages, $description, $file_type, $image, $book, $language,$oldFileSize,$oldBook,$oldImage);
+                }
                 require_once('admin/view/' . $route[$URL]);
                 break;
             case Route::ManagementUsers->value:

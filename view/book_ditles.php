@@ -37,7 +37,7 @@ include(__DIR__ . '/../includes/header.php'); ?>
               </tr>
               <tr>
                 <td>حجم الملف </td>
-                <td><?php echo $infoBook['file_size'] ?>  KB</td>
+                <td><?php echo $infoBook['file_size'] ?> KB</td>
               </tr>
               <tr>
                 <td>نوع الملف</td>
@@ -72,6 +72,20 @@ include(__DIR__ . '/../includes/header.php'); ?>
     <div class="book_descrption">
       <h3>وصف الكتب</h3>
       <p><?php echo $infoBook['description'] ?></p>
+    </div>
+  </section>
+  <section class="container">
+    <h4 class="title-like-you-book">كتب قد تعجبك</h4>
+    <div class="books_madad">
+      <?php foreach ($bookByCategory as $book): ?>
+        <div class="box_madad" title="<?= $book['title'] ?>">
+          <a href="book_ditles?bookID=<?= $book['id_book'] ?>" class="link-book">
+            <img src="<?= $book['image'] ?>" alt="<?= $book['title'] ?>" loading="lazy">
+          </a>
+          <a href="book_ditles?bookID=<?= $book['id_book'] ?>" class="book_title" title="<?= $book['title'] ?>"> <?= $book['title'] ?></a>
+          <a href="info_author?authroID=<?= $book['id_author'] ?>" class="author" title="<?= $book['name'] ?>"> <?= $book['name'] ?></a>
+        </div>
+      <?php endforeach; ?>
     </div>
   </section>
 </main>
