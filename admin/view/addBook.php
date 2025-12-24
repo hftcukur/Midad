@@ -70,7 +70,7 @@
                             </div>
                             <div class="box-form">
                                 <label for="fileInputBook" class="upload-btn">إضافة كتاب</label>
-                                <input type="file" name="book_url" id="fileInputBook" placeholder="ادخل  الكتاب" required>
+                                <input type="file" name="book_url" id="fileInputBook" placeholder="ادخل  الكتاب" accept=".pdf" required>
                             </div>
                         </div>
                     </div>

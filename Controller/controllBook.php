@@ -1,5 +1,4 @@
 <?php
-include __DIR__ . '/../helpers/handlingFiles.php';
 
 class ControllBook
 {
@@ -23,66 +22,31 @@ class ControllBook
     }
     public function findByID($id)
     {
-        if (isset($_GET['ID'])) {
-            $id = $_GET['ID'];
-            return $this->modelBook->findOneByid($id);
+        if ($id <= 0) {
+            return false;
         }
+        return $this->modelBook->findOneByid($id);
     }
     public function deleteBook($id)
     {
+
+        if ($id <= 0) {
+            return false;
+        }
         return $this->modelBook->delete($id);
     }
 
-
-
     //  Check If Come From Server And  No Error
-    function checkInputIsNotEmpty($bookName, $id_author, $year, $id_category, $pages, $description, $file_type, $image, $book, $language)
+    public function updateBook($id, $bookName, $id_author, $year, $id_category, $pages, $description, $file_type, $image, $book, $language, $oldFileSize, $oldBook, $oldImage)
     {
-
-
-        if (empty($bookName)) {
-            return ['hasInputEmpty' => 'يرجاء كتابة اسم الكتاب'];
-        }
-        if (empty($id_author)) {
-            return ['hasInputEmpty' => 'يرجاء تحدد المؤلف'];
-        }
-        if (empty($year)) {
-            return ['hasInputEmpty' => 'يرجاء تحديد السنة'];
-        }
-        if (empty($id_category)) {
-            return ['hasInputEmpty' => 'يرجاء تحديد الفئة'];
-        }
-        if (empty($pages)) {
-            return ['hasInputEmpty' => 'يرجاءإدخال عدد الصفحات'];
-        }
-        if (empty($file_type)) {
-            return ['hasInputEmpty' => 'يرجاء تحدد نوع الملف'];
-        }
-        if (empty($description)) {
-            return ['hasInputEmpty' => 'يرجاءإدخال وصف الكتاب'];
-        }
-        if (!isset($image) || $image['size'] == 0) {
-            return ['hasFileEmpty' => 'يرجاء إدخال الصورة'];
-        }
-
-        if (empty($language)) {
-            return ['hasInputEmpty' => 'يرجاء تحدد اللغة'];
-        }
-        if (!isset($book) || $book['size'] == 0) {
-            return ['hasFileEmpty' => 'يرجاء إدخال الكتاب'];
-        }
-        return null;
-    }
-    public function updateBook($id,$bookName, $id_author, $year, $id_category, $pages, $description, $file_type, $image, $book, $language,$oldFileSize,$oldBook,$oldImage)
-    {
-        $hasError =  $this->checkInputIsNotEmpty($bookName, $id_author, $year, $id_category, $pages, $description, $file_type, $image, $book, $language);
+        $hasError =  request::validateCreateBook($bookName, $id_author, $year, $id_category, $pages, $description, $file_type, $image, $book, $language);
         if (!isset($hasError['hasFileEmpty'])) {
             // return $hasError;
         }
 
         // Use  Data Book After Prossing
         if ($image['size'] == 0) {
-            $pathImage =$oldImage;
+            $pathImage = $oldImage;
         } else {
             $feedBackUploadImage = HandlingFiles::uploadImage($image, __DIR__ . '/../uploads/image_book/', 'uploads/image_book/');
             if (isset($feedBackUploadImage['hasInputEmpty'])) {
@@ -109,33 +73,39 @@ class ControllBook
 
     public function addBook($bookName, $id_author, $year, $id_category, $pages, $description, $file_type, $image, $book, $language)
     {
-        $hasError = $this->checkInputIsNotEmpty($bookName, $id_author, $year, $id_category, $pages, $description, $file_type, $image, $book, $language);
+        $hasError = request::validateCreateBook($bookName, $id_author, $year, $id_category, $pages, $description, $file_type, $image, $book, $language);
         if (!empty($hasError)) {
             return $hasError;
-        } 
-            // Use  Data Book After Prossing 
-            $feedBackUploadImage = HandlingFiles::uploadImage($image, __DIR__ . '/../uploads/image_book/', 'uploads/image_book/');
-            $feedBackUploadBook = HandlingFiles::uploadBook($book, __DIR__ . '/../uploads/book_url/', 'uploads/book_url/');
-            if (isset($feedBackUploadBook['hasInputEmpty'])) {
-                return  $feedBackUploadBook;
-            }
-            if (isset($feedBackUploadImage['hasInputEmpty'])) {
-                return $feedBackUploadImage;
-            }
-            $file_size = $feedBackUploadBook['file_size'];
-            $pathBook = $feedBackUploadBook['PathBook'];
-            $pathImage = $feedBackUploadImage['pathImage'];
-            $result = $this->modelBook->insertBook($bookName, $id_author, $year, $id_category, $pages, $description, $file_type, $file_size, $pathImage, $pathBook, $language);
-            if ($result) {
-                return ['successAddBook' => 'تم إضافة الكتاب بنجاح'];
-            } else {
-                return ['NotsuccessAddBook' => 'فشل إضافة الكتاب'];
-            }
+        }
+        // Use  Data Book After Prossing 
+        $feedBackUploadImage = HandlingFiles::uploadImage($image, __DIR__ . '/../uploads/image_book/', 'uploads/image_book/');
+        $feedBackUploadBook = HandlingFiles::uploadBook($book, __DIR__ . '/../uploads/book_url/', 'uploads/book_url/');
+        if (isset($feedBackUploadBook['hasInputEmpty'])) {
+            return  $feedBackUploadBook;
+        }
+        if (isset($feedBackUploadImage['hasInputEmpty'])) {
+            return $feedBackUploadImage;
+        }
+        $file_size = $feedBackUploadBook['file_size'];
+        $pathBook = $feedBackUploadBook['PathBook'];
+        $pathImage = $feedBackUploadImage['pathImage'];
+        $result = $this->modelBook->insertBook($bookName, $id_author, $year, $id_category, $pages, $description, $file_type, $file_size, $pathImage, $pathBook, $language);
+        if ($result) {
+            return ['successAddBook' => 'تم إضافة الكتاب بنجاح'];
+        } else {
+            return ['NotsuccessAddBook' => 'فشل إضافة الكتاب'];
+        }
     }
 
 
-    public   function search($name)
+    public   function search(string $name)
     {
+
+        $validatedSearch  = request::validateSearch($name);
+        if ($validatedSearch  === false) {
+            return ['hasErrorInSearch' => 'البحث غير صالح'];
+        }
+
         return $this->modelBook->search($name);
     }
     function getBookByCategory($id)

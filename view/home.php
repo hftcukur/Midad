@@ -37,7 +37,7 @@
         </section>
         <div class="book_results">
             <div class="result-books" title="الأشهر اليوم">
-                <a href="" >
+                <a href="">
                     <img src="public/images/trend_books2.svg" alt="الأشهر اليوم">
                     <p> الأشهر اليوم</p>
                 </a>
@@ -63,8 +63,8 @@
                     <a href="book_ditles?bookID=<?= $book['id_book'] ?>" class="link-book">
                         <img src="<?= $book['image'] ?>" alt="<?= $book['title'] ?>" loading="lazy">
                     </a>
-                    <a href="book_ditles?bookID=<?= $book['id_book'] ?>" class="book_title" title="<?= $book['title'] ?>"> <?= $book['title'] ?></a>
-                    <a href="info_author?authroID=<?= $book['id_author'] ?>" class="author" title="<?= $book['name'] ?>"> <?= $book['name'] ?></a>
+                    <a href="book_ditles?bookID=<?= $book['id_book'] ?>" class="book_title" title="<?= $book['title'] ?>"> <?= htmlspecialchars($book['title']) ?></a>
+                    <a href="info_author?authroID=<?= $book['id_author'] ?>" class="author" title="<?= $book['name'] ?>"> <?= htmlspecialchars($book['name']) ?></a>
                 </div>
             <?php endforeach; ?>
         </div>

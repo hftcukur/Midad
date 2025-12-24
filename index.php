@@ -11,6 +11,9 @@
     include_once  'Controller/ControllUser.php';
     include_once  'functions/functions.php';
     require_once  'database/database.php';
+    include 'validated/Request.php';
+    include 'helpers/handlingFiles.php';
+
 
     $database  = databaseConnection();
 
@@ -47,23 +50,23 @@
         case updateBook = '/Madad/admin/update';
     }
     $route = [
-        '/Madad/home' => 'home.php',
-        '/Madad/books' => 'books.php',
-        '/Madad/category' => 'category.php',
-        '/Madad/search' => 'search.php',
-        '/Madad/authors' => 'authors.php',
-        '/Madad/register' => 'register.php',
-        '/Madad/login' => 'login.php',
-        '/Madad/book_ditles' => 'book_ditles.php',
-        '/Madad/info_author' => 'info_author.php',
-        '/Madad/profile' => 'profile.php',
-        '/Madad/admin/home' => 'page-admin.php',
-        '/Madad/admin/addAuthor' => 'addAuthor.php',
-        '/Madad/admin/magagement-atuhor' => 'manageAuthor.php',
-        '/Madad/admin/ManagementUsers' => 'ManagementUsers.php',
-        '/Madad/admin/admin' => 'admin.php',
-        '/Madad/admin/addBook' => 'addBook.php',
-        '/Madad/admin/update' => 'updateBook.php',
+        Route::home->value => 'home.php',
+        Route::books->value => 'books.php',
+        Route::category->value => 'category.php',
+        Route::search->value => 'search.php',
+        Route::authors->value => 'authors.php',
+        Route::register->value => 'register.php',
+        Route::login->value => 'login.php',
+        Route::book_ditles->value => 'book_ditles.php',
+        Route::info_author->value => 'info_author.php',
+        Route::profile->value => 'profile.php',
+        Route::homePageAdmin->value => 'page-admin.php',
+        Route::addAuthor->value => 'addAuthor.php',
+        Route::managemtAuthor->value => 'manageAuthor.php',
+        Route::ManagementUsers->value => 'ManagementUsers.php',
+        Route::pageAdmin->value => 'admin.php',
+        Route::pageAdminAddBook->value => 'addBook.php',
+        Route::updateBook->value => 'updateBook.php',
         '/Madad/admin/addAdmin' => 'addAdmin.php',
     ];
     if (array_key_exists($URL, $route)) {
@@ -225,21 +228,35 @@
                 }
                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateBook'])) {
                     $id = $_GET['ID'] ?? 0;
-                    $bookName = $_POST['bookName'] ;
-                    $year = $_POST['publish_year'] ;
-                    $id_category = $_POST['id_category'] ;
-                    $id_author = $_POST['id_author'] ;
-                    $pages = $_POST['pages'] ;
-                    $description = $_POST['description'] ;
-                    $file_type = $_POST['file_type'] ;
-                    $language = $_POST['language'] ;
-                    $oldFileSize = $_POST['oldFileSize'] ;
-                     $oldBook = $_POST['oldFileBook'];
-                   $oldImage=  $_POST['oldPathImage'];
-                    $image = $_FILES['image_url'] ;
-                    $book = $_FILES['book_url'] ;
-                    $Message = $controllBook->updateBook($id,$bookName, $id_author, $year,
-                     $id_category, $pages, $description, $file_type, $image, $book, $language,$oldFileSize,$oldBook,$oldImage);
+                    $bookName = $_POST['bookName'];
+                    $year = $_POST['publish_year'];
+                    $id_category = $_POST['id_category'];
+                    $id_author = $_POST['id_author'];
+                    $pages = $_POST['pages'];
+                    $description = $_POST['description'];
+                    $file_type = $_POST['file_type'];
+                    $language = $_POST['language'];
+                    $oldFileSize = $_POST['oldFileSize'];
+                    $oldBook = $_POST['oldFileBook'];
+                    $oldImage =  $_POST['oldPathImage'];
+                    $image = $_FILES['image_url'];
+                    $book = $_FILES['book_url'];
+                    $Message = $controllBook->updateBook(
+                        $id,
+                        $bookName,
+                        $id_author,
+                        $year,
+                        $id_category,
+                        $pages,
+                        $description,
+                        $file_type,
+                        $image,
+                        $book,
+                        $language,
+                        $oldFileSize,
+                        $oldBook,
+                        $oldImage
+                    );
                 }
                 require_once('admin/view/' . $route[$URL]);
                 break;
