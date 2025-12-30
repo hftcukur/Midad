@@ -18,9 +18,6 @@ class request
         if (empty($pages)) {
             return ['hasInputEmpty' => 'يرجاءإدخال عدد الصفحات'];
         }
-        if (filter_var($pages,FILTER_SANITIZE_NUMBER_INT)) {
-            return ['hasInputEmpty' => 'يرجاءإدخال عدد  رقم'];
-        }
         if ($pages  <= 20) {
             return ['hasInputEmpty' => 'ادخل عدد اكبر من 20'];
         }

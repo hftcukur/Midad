@@ -21,7 +21,7 @@ class ModelBook   extends BaseModel
   {
     $QueryLoadAllBooks = "SELECT * FROM view_book order by id desc	";
     $stmt = $this->database->prepare($QueryLoadAllBooks);
-    $stmt->execute();
+    // $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
