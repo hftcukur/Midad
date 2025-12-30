@@ -13,11 +13,26 @@
             $allUser = $this->Model->loadAll();
             return $allUser;
         }
-
+        private function validateID($id){
+            if(!filter_var($id,FILTER_VALIDATE_INT)){
+                header ('location: errorURL');
+                exit();
+            }
+            $cleanID = filter_var($id,FILTER_SANITIZE_NUMBER_INT);
+            if($cleanID < 0){
+                header ('location: errorURL');
+                exit();
+            }
+            return $cleanID;
+        }
         public function findByID($id)
         {
-            $detailsUser = $this->Model->findByID($id);
-            return $detailsUser;
+            $id = $this->validateID($id);
+            if(is_numeric($id)){
+
+            }
+            // $detailsUser = $this->Model->findByID($id);
+            // return $detailsUser;
         }
         public function update($username, $email)
         {
@@ -26,6 +41,8 @@
         
         public function delete($id)
         {
+            $CleanID = $this->validateID($id);
+
             return $this->Model->delete($id);
         }
         
@@ -34,19 +51,21 @@
             $resultSearch = $this->Model->search($username);
         }
 
+        // Clean Data User
         private function ProcceDataUser(&$username,&$email,&$password){
-            // $password = 
+            $username = strtolower(trim($username));
+            $email = strtolower(filter_var($email,FILTER_SANITIZE_EMAIL));
+            $password = password_hash(trim($password), PASSWORD_BCRYPT);
+
         }
         public function insert($username, $email, $password)
         {
-            $username = strtolower(trim($username));
-            $email = strtolower(trim($email));
-            $password = trim($password);
             $validateRegisterUser = request::validateRegister($username,$email,$password);
             if($validateRegisterUser ){
                 return $validateRegisterUser;
             }
             $token = session_id();
+            $this->ProcceDataUser($username,$email,$password);
             $resultRegister =  $this->Model->insert($username, $email, $password, $token,'user');
 
             if ($resultRegister) {

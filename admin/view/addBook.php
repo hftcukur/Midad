@@ -28,8 +28,9 @@
                                         <option value="<?php echo $author['id_author'] ?>">
                                             <?php echo $author['name'] ?>
                                         </option>
-                                    <?php endforeach; ?>
-                                </select>
+                                        <?php endforeach; ?>
+                                        <option value="1">1</option>
+                                    </select>
                             </div>
                         </div>
                         <div class="fisrt-section">
@@ -44,7 +45,8 @@
                                         <option value="<?php echo $category['id_category'] ?>">
                                             <?php echo $category['title_category'] ?>
                                         </option>
-                                    <?php endforeach; ?>
+                                        <?php endforeach; ?>
+                                        <option value="1">2</option>
                                 </select>
                             </div>
                         </div>

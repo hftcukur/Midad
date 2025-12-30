@@ -6,15 +6,29 @@ class ControllerAuthor
   {
     $this->model = $model;
   }
+  private function validateID($id)
+  {
+    if (!filter_var($id, FILTER_VALIDATE_INT)) {
+      header('location: errorURL');
+      exit();
+    }
+    $cleanID = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+    if ($cleanID < 0) {
+      header('location: errorURL');
+      exit();
+    }
+    return $cleanID;
+  }
   public function findOneByid($id)
   {
 
+    $this->validateID($id);
     return $this->model->loadInfoAuthorByID($id);
   }
   public function findMoreOne($id)
   {
 
-    return $this->model->loadAllAuthorBook($id,);
+    return $this->model->loadAllAuthorBook($id);
   }
   public function getAll()
   {
@@ -42,5 +56,4 @@ class ControllerAuthor
     $result = $this->model->insert($nameAuthor, $pathImage, $bio);
     return ($result) ? "تم إضافة المؤلف بنجاح" : "فشل إضافة المؤلف";
   }
-  
 }

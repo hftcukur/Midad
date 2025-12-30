@@ -35,13 +35,13 @@
                 <tbody>
                     <?php foreach ($allUsers as $users): ?>
                         <tr>
-                            <td><?php echo $users['id'] ?></td>
+                            <td><?php echo $users['user_id'] ?></td>
                             <td><?php echo $users['username'] ?></td>
                             <td><?php echo $users['email'] ?></td>
                             <td><?php echo $users['password'] ?></td>
                             <td><?php echo $users['created_at'] ?></td>
                             <td class="action-btn">
-                                <button class="btn delete" onclick="window.location='update?=1'"><i class="fa-solid fa-trash"></i></button>
+                                <button class="btn delete" onclick="window.location='?id=<?= $users['user_id'] ?>'"><i class="fa-solid fa-trash"></i></button>
                                 <button class="btn update" onclick="window.location='update?='"><i class="fa-solid fa-pen"></i></button>
                             </td>
                         </tr>

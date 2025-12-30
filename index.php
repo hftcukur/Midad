@@ -47,6 +47,7 @@
         case pageAdmin = '/Madad/admin/admin';
         case pageAdminAddBook = '/Madad/admin/addBook';
         case pageAdminAddAdmin = '/Madad/admin/addAdmin';
+        case errorURL = '/Madad/admin/errorURL';
         case updateBook = '/Madad/admin/update';
     }
     $route = [
@@ -57,6 +58,7 @@
         Route::authors->value => 'authors.php',
         Route::register->value => 'register.php',
         Route::login->value => 'login.php',
+        Route::errorURL->value => 'errorURL.php',
         Route::book_ditles->value => 'book_ditles.php',
         Route::info_author->value => 'info_author.php',
         Route::profile->value => 'profile.php',
@@ -143,7 +145,7 @@
                 }
 
                 $infoAuthor = $controllAuthor->findOneByid($id);
-                $allBooksAuthor = $controllAuthor->findMoreOne($id);
+                // $allBooksAuthor = $controllAuthor->findMoreOne($id);
                 require_once('view/' . $route[$URL]);
                 break;
             case Route::category->value:
@@ -264,6 +266,9 @@
                 break;
             case Route::ManagementUsers->value:
                 $allUsers = $controllUser->show();
+                if(isset($_GET['id'])){
+                    $controllUser->findByID($_GET['id']);
+                }
                 require_once('admin/view/' . $route[$URL]);
                 break;
             default:
