@@ -7,6 +7,26 @@ class ControllBook
     {
         $this->modelBook = $model;
     }
+    // Check IF ID has error
+    private function validateID($id)
+    {
+        if (!filter_var($id, FILTER_VALIDATE_INT)) {
+            include __DIR__ . '/../view/errorURL.php';
+            exit();
+        }
+        $cleanID = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        if ($cleanID < 0) {
+            include __DIR__ . '/../view/errorURL.php';
+            exit;
+        }
+        return $cleanID;
+    }
+    // If Get ID Integer In Check in Database If Not exists  Not Display  Page. 
+    function   NotSDiplayPageWithoutID(): void
+    {
+        include __DIR__ . '/../view/errorURL.php';
+        exit();
+    }
     public function getAll()
     {
         $allBooks = $this->modelBook->loadAllBooks();
@@ -20,19 +40,25 @@ class ControllBook
     {
         return $this->modelBook->loadCategory();
     }
+    function getBookAuthor($id)
+    {
+
+        $this->validateID($id);
+        $resultBookWithAuthor = $this->modelBook->loadBookByAuthorID($id);
+        if (empty($resultBookWithAuthor)) {
+            $this->NotSDiplayPageWithoutID();
+        }
+        return $resultBookWithAuthor;
+    }
     public function findByID($id)
     {
-        if ($id <= 0) {
-            return false;
-        }
+        $this->validateID($id);
         return $this->modelBook->findOneByid($id);
     }
     public function deleteBook($id)
     {
 
-        if ($id <= 0) {
-            return false;
-        }
+        $this->validateID($id);
         return $this->modelBook->delete($id);
     }
 
@@ -110,11 +136,18 @@ class ControllBook
     }
     function getBookByCategory($id)
     {
+        $this->validateID($id);
         return $this->modelBook->loadBookByCateogryID($id);
     }
     function getInfoBookByID($idBook)
     {
-        return $this->modelBook->infoBook($idBook);
+        $this->validateID($idBook);
+
+        $resultInfoBook = $this->modelBook->infoBook($idBook);
+        if (empty($resultInfoBook)) {
+            $this->NotSDiplayPageWithoutID();
+        }
+        return $resultInfoBook;
     }
     function like($lik) {}
     function incrementDonwnload($id)

@@ -60,7 +60,12 @@ header {
 
 
 }
-
+.error-url {
+   position: relative;
+   top: 10rem;
+   text-align: center;
+   height: 65vh;
+}
 header .container {
    height: 100%;
    display: flex;

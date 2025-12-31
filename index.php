@@ -133,7 +133,7 @@
                 if (isset($_POST['idReadBook'])) {
                     $controllBook->incrementReadBook($_POST['idReadBook']);
                 }
-                $OtherBooks = $controllBook->OtherBooks();
+                $OtherBooks = $controllBook->getInfoBookAndAuthor();
                 $infoBook = $controllBook->getInfoBookByID($id);
                 // $id_category = $infoBook['id_category'];
                 $bookByCategory = $controllBook->getBookByCategory(1);
@@ -272,8 +272,8 @@
                 require_once('admin/view/' . $route[$URL]);
                 break;
             default:
-                require_once('view/404.php');
+                require_once('view/errorURL.php');
         }
     } else {
-        require_once('view/404.php');
+        require_once('view/errorURL.php');
     }
