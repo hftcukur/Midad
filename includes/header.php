@@ -25,7 +25,7 @@
 
             <nav>
                 <ul>
-                    <li><a href="home">الرئيسية</a></li>
+                    <li><a href="/Madad/">الرئيسية</a></li>
                     <li><a href="books">أقسام الكتب</a></li>
                     <li><a href="authors">مؤلفو الكتب</a></li>
                 </ul>

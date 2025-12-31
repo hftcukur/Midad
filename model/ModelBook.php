@@ -19,7 +19,7 @@ class ModelBook   extends BaseModel
   // Load All Books
   function loadAllBooks()
   {
-    $QueryLoadAllBooks = "SELECT * FROM view_book order by id desc	";
+    $QueryLoadAllBooks = "SELECT * FROM view_book order by id_book desc	";
     $stmt = $this->database->prepare($QueryLoadAllBooks);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -30,7 +30,7 @@
     $query = $_GET['query'] ?? '';
     enum Route: string
     {
-        case home = '/Madad/home';
+        case home = '/Madad/';
         case books = '/Madad/books';
         case category = '/Madad/category';
         case search = '/Madad/search';
@@ -40,15 +40,15 @@
         case book_ditles = '/Madad/book_ditles';
         case info_author = '/Madad/info_author';
         case profile = '/Madad/profile';
-        case homePageAdmin = '/Madad/admin/home';
-        case managemtAuthor = '/Madad/admin/magagement-atuhor';
-        case ManagementUsers = '/Madad/admin/ManagementUsers';
-        case addAuthor = '/Madad/admin/addAuthor';
-        case pageAdmin = '/Madad/admin/admin';
-        case pageAdminAddBook = '/Madad/admin/addBook';
-        case pageAdminAddAdmin = '/Madad/admin/addAdmin';
-        case errorURL = '/Madad/admin/errorURL';
-        case updateBook = '/Madad/admin/update';
+        case homePageAdmin = '/Madad/homeAdimn';
+        case managemtAuthor = '/Madad/magagement-atuhor';
+        case ManagementUsers = '/Madad/ManagementUsers';
+        case addAuthor = '/Madad/addAuthor';
+        case pageAdmin = '/Madad/admin';
+        case pageAdminAddBook = '/Madad/addBook';
+        case pageAdminAddAdmin = '/Madad/addAdmin';
+        case errorURL = '/Madad/errorURL';
+        case updateBook = '/Madad/update';
     }
     $route = [
         Route::home->value => 'home.php',
@@ -69,7 +69,7 @@
         Route::pageAdmin->value => 'admin.php',
         Route::pageAdminAddBook->value => 'addBook.php',
         Route::updateBook->value => 'updateBook.php',
-        '/Madad/admin/addAdmin' => 'addAdmin.php',
+        '/Madad/addAdmin' => 'addAdmin.php',
     ];
     if (array_key_exists($URL, $route)) {
         switch ($URL) {
@@ -174,11 +174,11 @@
                     $id = $_POST['idDeleletBook'];
                     $controllBook->deleteBook($id);
                 }
-                require_once('admin/view/' . $route[$URL]);
+                require_once('view/' . $route[$URL]);
                 break;
             case Route::pageAdmin->value:
                 $allAdmins = $controllAdmin->show();
-                require_once('admin/view/' . $route[$URL]);
+                require_once('view/' . $route[$URL]);
                 break;
             case Route::pageAdminAddBook->value:
 
@@ -197,7 +197,7 @@
                 }
                 $allCategory = $controllBook->getAllCategory();
                 $authors = $controllAuthor->getAll();
-                require_once('admin/view/' . $route[$URL]);
+                require_once('view/' . $route[$URL]);
                 break;
             case Route::pageAdminAddAdmin->value:
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -208,11 +208,11 @@
                         $controllAdmin->insert($username, $email, $password);
                     }
                 }
-                require_once('admin/view/' . $route[$URL]);
+                require_once('view/' . $route[$URL]);
                 break;
             case Route::managemtAuthor->value:
                 $allAuthors = $controllAuthor->getAll();
-                require_once('admin/view/' . $route[$URL]);
+                require_once('view/' . $route[$URL]);
                 break;
             case Route::addAuthor->value:
                 if (isset($_POST['addauthor'])) {
@@ -221,7 +221,7 @@
                     $bioAuthro = $_POST['bio'];
                     $Message = $controllAuthor->addAuthor($nameAuthor, $imageURLAuthro, $bioAuthro);
                 }
-                require_once('admin/view/' . $route[$URL]);
+                require_once('view/' . $route[$URL]);
                 break;
             case Route::updateBook->value:
                 $authors  = $controllAuthor->getAll();
@@ -262,14 +262,14 @@
                         $oldImage
                     );
                 }
-                require_once('admin/view/' . $route[$URL]);
+                require_once('view/' . $route[$URL]);
                 break;
             case Route::ManagementUsers->value:
                 $allUsers = $controllUser->show();
                 if(isset($_GET['id'])){
                     $controllUser->findByID($_GET['id']);
                 }
-                require_once('admin/view/' . $route[$URL]);
+                require_once('view/' . $route[$URL]);
                 break;
             default:
                 require_once('view/errorURL.php');
